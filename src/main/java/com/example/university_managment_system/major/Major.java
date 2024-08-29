@@ -1,5 +1,6 @@
 package com.example.university_managment_system.major;
 import com.example.university_managment_system.department.Department;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,10 +10,12 @@ public class Major {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
+    @JsonIgnore
     private Department department;
     private Integer credits;
+
     public Major() {
     }
     public Major(long id, String name) {

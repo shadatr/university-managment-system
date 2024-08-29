@@ -1,5 +1,6 @@
 package com.example.university_managment_system.department;
 
+import com.example.university_managment_system.major.Major;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,19 @@ public class DepartmentService {
         return DepartmentRepository.findById(DepartmentId).orElseThrow(() -> new IllegalStateException(
                 "Department with id " + DepartmentId + " does not exist"
         ));
+    }
+
+    public List<Major> getDepartmentMajors(Long DepartmentId) {
+        Department department= DepartmentRepository.findById(DepartmentId).orElseThrow(() -> new IllegalStateException(
+                "Department with id " + DepartmentId + " does not exist"
+        ));
+
+        Department dep= new Department();
+        dep.setId(department.getId());
+        dep.setName(department.getName());
+        dep.setMajors(department.getMajors());
+
+        return department.getMajors();
     }
 
     public void addNewDepartment(Department Department) {

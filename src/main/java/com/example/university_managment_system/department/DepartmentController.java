@@ -1,5 +1,6 @@
 package com.example.university_managment_system.department;
 
+import com.example.university_managment_system.major.Major;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,12 @@ public class DepartmentController {
     public Department getDepartment(@PathVariable("departmentId") Long departmentId) {
         return departmentService.getDepartment(departmentId);
     }
+
+    @GetMapping(path = "departmentMajors/{departmentId}")
+    public List<Major> getDepartmentMajors(@PathVariable("departmentId") Long departmentId) {
+        return departmentService.getDepartmentMajors(departmentId);
+    }
+
 
     @PostMapping
     public void registerNewDepartment(@RequestBody Department Department) {

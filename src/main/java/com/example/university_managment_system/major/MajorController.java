@@ -37,7 +37,7 @@ public class MajorController {
     @PutMapping(path = "{majorId}")
     public void updateMajor(
             @PathVariable("majorId") Long majorId,
-            @RequestBody Major Major) {
+            @RequestBody MajorRequest Major) {
         majorService.updateMajor(majorId, Major);
     }
 }
