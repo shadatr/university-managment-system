@@ -26,19 +26,6 @@ public class DepartmentService {
         ));
     }
 
-    public List<Major> getDepartmentMajors(Long DepartmentId) {
-        Department department= DepartmentRepository.findById(DepartmentId).orElseThrow(() -> new IllegalStateException(
-                "Department with id " + DepartmentId + " does not exist"
-        ));
-
-        Department dep= new Department();
-        dep.setId(department.getId());
-        dep.setName(department.getName());
-        dep.setMajors(department.getMajors());
-
-        return department.getMajors();
-    }
-
     public void addNewDepartment(Department Department) {
         Optional<Department> DepartmentOptional = DepartmentRepository.findDepartmentByName(Department.getName());
         if (DepartmentOptional.isPresent()) {

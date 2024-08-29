@@ -1,15 +1,9 @@
 package com.example.university_managment_system.student;
-import com.example.university_managment_system.department.Department;
-import com.example.university_managment_system.major.Major;
-import com.example.university_managment_system.teacher.Teacher;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.Period;
 
-@Entity
-@Table
-public class Student {
+import java.time.LocalDate;
+
+public class StudentRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -19,20 +13,15 @@ public class Student {
     private Integer phone;
     private LocalDate birth_date;
     private String address;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "major_id", nullable = false)
-    @JsonIgnore
-    private Major major;
+    private Long major_id;
     private Integer semester;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "advisor", nullable = false)
-    @JsonIgnore
-    private Teacher advisor;
+    private Long advisor;
     private String password;
 
-    public Student() {
+    public StudentRequest() {
     }
-    public Student(long id, String name, String surname, String email, Integer phone, LocalDate birth_date, String address, Major major, Integer semester, Teacher advisor, String password) {
+
+    public StudentRequest(long id, String name, String surname, String email, Integer phone, LocalDate birth_date, String address, Long major_id, Integer semester, Long advisor, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -40,20 +29,20 @@ public class Student {
         this.phone = phone;
         this.birth_date = birth_date;
         this.address = address;
-        this.major = major;
+        this.major_id = major_id;
         this.semester = semester;
         this.advisor = advisor;
         this.password = password;
     }
 
-    public Student(String name, String surname, String email, Integer phone, LocalDate birth_date, String address, Major major, Integer semester, Teacher advisor, String password) {
+    public StudentRequest(String name, String surname, String email, Integer phone, LocalDate birth_date, String address, Long major_id, Integer semester, Long advisor, String password) {
         this.name = name;
         this.email = email;
         this.surname = surname;
         this.phone = phone;
         this.birth_date = birth_date;
         this.address = address;
-        this.major = major;
+        this.major_id = major_id;
         this.semester = semester;
         this.advisor = advisor;
         this.password = password;
@@ -101,11 +90,11 @@ public class Student {
     public void setAddress(String address) {
         this.address = address;
     }
-    public Major getMajor() {
-        return this.major;
+    public Long getMajor_id() {
+        return this.major_id;
     }
-    public void setMajor(Major major) {
-        this.major = major;
+    public void setMajor_id(Long major_id) {
+        this.major_id = major_id;
     }
     public Integer getSemester() {
         return this.semester;
@@ -113,10 +102,10 @@ public class Student {
     public void setSemester(Integer semester) {
         this.semester = semester;
     }
-    public Teacher getAdvisor() {
+    public Long getAdvisor() {
         return this.advisor;
     }
-    public void setAdvisor(Teacher advisor) {
+    public void setAdvisor(Long advisor) {
         this.advisor = advisor;
     }
     public String getPassword() {
@@ -126,7 +115,4 @@ public class Student {
         this.password = password;
     }
 
-    public String toString() {
-        return "Student{id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", phone=" + phone + ", birth_date=" + birth_date + ", address=" + address + ", major=" + major + ", semester=" + semester + ", advisor=" + advisor + "}";
-    }
 }
