@@ -16,12 +16,14 @@ public class Department {
 
     public Department() {
     }
-    public Department(long id, String name) {
+    public Department(long id, String name, List<Major> majors) {
         this.id = id;
         this.name = name;
+        this.majors = majors;
     }
-    public Department(String name) {
+    public Department(String name, List<Major> majors) {
         this.name = name;
+        this.majors = majors;
     }
 
     public long getId() {

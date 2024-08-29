@@ -26,12 +26,20 @@ public class Major {
 
     public Major() {
     }
-    public Major(long id, String name) {
+    public Major(long id, String name, Department department, Integer credits, List<Student> students, List<MajorCourses> majorCourses) {
         this.id = id;
         this.name = name;
+        this.department = department;
+        this.credits = credits;
+        this.students = students;
+        this.majorCourses = majorCourses;
     }
-    public Major(String name) {
+    public Major(String name, Department department, Integer credits, List<Student> students, List<MajorCourses> majorCourses) {
         this.name = name;
+        this.department = department;
+        this.credits = credits;
+        this.students = students;
+        this.majorCourses = majorCourses;
     }
 
     public long getId() {

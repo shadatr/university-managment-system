@@ -1,11 +1,11 @@
 package com.example.university_managment_system.student;
-import com.example.university_managment_system.department.Department;
 import com.example.university_managment_system.major.Major;
+import com.example.university_managment_system.studentCourse.StudentCourse;
 import com.example.university_managment_system.teacher.Teacher;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.Period;
+import java.util.List;
 
 @Entity
 @Table
@@ -29,10 +29,12 @@ public class Student {
     @JsonIgnore
     private Teacher advisor;
     private String password;
+    @OneToMany(mappedBy = "courseSection", fetch = FetchType.EAGER)
+    private List<StudentCourse> studentCourses;
 
     public Student() {
     }
-    public Student(long id, String name, String surname, String email, Integer phone, LocalDate birth_date, String address, Major major, Integer semester, Teacher advisor, String password) {
+    public Student(long id, String name, String surname, String email, Integer phone, LocalDate birth_date, String address, Major major, Integer semester, Teacher advisor, String password, List<StudentCourse> studentCourses) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -44,9 +46,10 @@ public class Student {
         this.semester = semester;
         this.advisor = advisor;
         this.password = password;
+        this.studentCourses = studentCourses;
     }
 
-    public Student(String name, String surname, String email, Integer phone, LocalDate birth_date, String address, Major major, Integer semester, Teacher advisor, String password) {
+    public Student(String name, String surname, String email, Integer phone, LocalDate birth_date, String address, Major major, Integer semester, Teacher advisor, String password, List<StudentCourse> studentCourses) {
         this.name = name;
         this.email = email;
         this.surname = surname;
@@ -57,6 +60,7 @@ public class Student {
         this.semester = semester;
         this.advisor = advisor;
         this.password = password;
+        this.studentCourses = studentCourses;
     }
 
     public long getId() {
@@ -124,6 +128,12 @@ public class Student {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public List<StudentCourse> getStudentCourses() {
+        return this.studentCourses;
+    }
+    public void setStudentCourses(List<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
     }
 
     public String toString() {

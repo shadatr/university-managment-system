@@ -1,8 +1,10 @@
 package com.example.university_managment_system.CourseSections;
 import com.example.university_managment_system.courses.Course;
 import com.example.university_managment_system.department.Department;
+import com.example.university_managment_system.major.Major;
 import com.example.university_managment_system.majorCourses.MajorCourses;
 import com.example.university_managment_system.student.Student;
+import com.example.university_managment_system.studentCourse.StudentCourse;
 import com.example.university_managment_system.teacher.Teacher;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -25,10 +27,12 @@ public class CourseSection {
     @JsonIgnore
     private Teacher teacher;
     private String semester;
+    @OneToMany(mappedBy = "courseSection", fetch = FetchType.EAGER)
+    private List<StudentCourse> studentCourses;
 
     public CourseSection() {
     }
-    public CourseSection(long id, String name, Course course, Teacher teacher, String semester) {
+    public CourseSection(long id, String name, Course course, Teacher teacher, String semester, List<StudentCourse> studentCourses) {
         this.id = id;
         this.name = name;
         this.course = course;
@@ -36,7 +40,7 @@ public class CourseSection {
         this.semester = semester;
     }
 
-    public CourseSection(String name, Course course, Teacher teacher, String semester) {
+    public CourseSection(String name, Course course, Teacher teacher, String semester, List<StudentCourse> studentCourses) {
         this.name = name;
         this.course = course;
         this.teacher = teacher;
@@ -73,5 +77,10 @@ public class CourseSection {
     public void setSemester(String semester) {
         this.semester = semester;
     }
-
+    public List<StudentCourse> getStudentCourses() {
+        return this.studentCourses;
+    }
+    public void setStudentCourses(List<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
+    }
 }

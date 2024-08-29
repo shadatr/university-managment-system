@@ -1,4 +1,5 @@
 package com.example.university_managment_system.courses;
+import com.example.university_managment_system.CourseSections.CourseSection;
 import com.example.university_managment_system.department.Department;
 import com.example.university_managment_system.majorCourses.MajorCourses;
 import com.example.university_managment_system.student.Student;
@@ -18,15 +19,25 @@ public class Course {
     private Integer hours;
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
     private List<MajorCourses> majorCourses;
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+    private List<CourseSection> courseSections;
 
     public Course() {
     }
-    public Course(long id, String name) {
+    public Course(long id, String name, Integer credits, Integer hours, List<MajorCourses> majorCourses, List<CourseSection> courseSections) {
         this.id = id;
         this.name = name;
+        this.credits = credits;
+        this.hours = hours;
+        this.majorCourses = majorCourses;
+        this.courseSections = courseSections;
     }
-    public Course(String name) {
+    public Course(String name, Integer credits, Integer hours, List<MajorCourses> majorCourses, List<CourseSection> courseSections) {
         this.name = name;
+        this.credits = credits;
+        this.hours = hours;
+        this.majorCourses = majorCourses;
+        this.courseSections = courseSections;
     }
 
     public long getId() {
@@ -58,5 +69,8 @@ public class Course {
     }
     public void setMajorCourses(List<MajorCourses> majorCourses) {
         this.majorCourses = majorCourses;
+    }
+    public List<CourseSection> getCourseSections() {
+        return this.courseSections;
     }
 }

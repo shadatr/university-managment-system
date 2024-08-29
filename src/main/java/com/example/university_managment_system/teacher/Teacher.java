@@ -1,6 +1,8 @@
 package com.example.university_managment_system.teacher;
+import com.example.university_managment_system.CourseSections.CourseSection;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table
@@ -17,10 +19,12 @@ public class Teacher {
     private String major;
     private Integer Department;
     private String password;
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
+    private List<CourseSection> courseSections;
 
     public Teacher() {
     }
-    public Teacher(long id, String name, String surname, String email, Integer phone, LocalDate birth_date, String address, String major, Integer Department, String password) {
+    public Teacher(long id, String name, String surname, String email, Integer phone, LocalDate birth_date, String address, String major, Integer Department, String password, List<CourseSection> courseSections) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -30,9 +34,11 @@ public class Teacher {
         this.address = address;
         this.major= major;
         this.Department = Department;
+        this.password = password;
+        this.courseSections = courseSections;
     }
 
-    public Teacher(String name, String surname, String email, Integer phone, LocalDate birth_date, String address, String major, Integer Department, String password) {
+    public Teacher(String name, String surname, String email, Integer phone, LocalDate birth_date, String address, String major, Integer Department, String password, List<CourseSection> courseSections) {
         this.name = name;
         this.email = email;
         this.surname = surname;
@@ -41,6 +47,8 @@ public class Teacher {
         this.address = address;
         this.major= major;
         this.Department = Department;
+        this.password = password;
+        this.courseSections = courseSections;
     }
 
     public long getId() {
@@ -102,6 +110,12 @@ public class Teacher {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public List<CourseSection> getCourseSections() {
+        return this.courseSections;
+    }
+    public void setCourseSections(List<CourseSection> courseSections) {
+        this.courseSections = courseSections;
     }
 
 
