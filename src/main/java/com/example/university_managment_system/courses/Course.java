@@ -1,4 +1,4 @@
-package com.example.university_managment_system.major;
+package com.example.university_managment_system.courses;
 import com.example.university_managment_system.department.Department;
 import com.example.university_managment_system.majorCourses.MajorCourses;
 import com.example.university_managment_system.student.Student;
@@ -9,28 +9,23 @@ import java.util.List;
 
 @Entity
 @Table
-public class Major {
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
-    @JsonIgnore
-    private Department department;
     private Integer credits;
-    @OneToMany(mappedBy = "major", fetch = FetchType.EAGER)
-    private List<Student> students;
-    @OneToMany(mappedBy = "major", fetch = FetchType.EAGER)
+    private Integer hours;
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
     private List<MajorCourses> majorCourses;
 
-    public Major() {
+    public Course() {
     }
-    public Major(long id, String name) {
+    public Course(long id, String name) {
         this.id = id;
         this.name = name;
     }
-    public Major(String name) {
+    public Course(String name) {
         this.name = name;
     }
 
@@ -46,23 +41,17 @@ public class Major {
     public void setName(String name) {
         this.name = name;
     }
-    public Department getDepartment() {
-        return this.department;
-    }
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
     public Integer getCredits() {
         return this.credits;
     }
     public void setCredits(Integer credits) {
         this.credits = credits;
     }
-    public List<Student> getStudents() {
-        return this.students;
+    public Integer getHours() {
+        return this.hours;
     }
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public void setHours(Integer hours) {
+        this.hours = hours;
     }
     public List<MajorCourses> getMajorCourses() {
         return this.majorCourses;

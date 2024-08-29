@@ -21,13 +21,9 @@ public class StudentController {
         return studentService.getStudent(studentId);
     }
 
-    @GetMapping(path = "{majorId}")
-    public List<Student> getStudentsByMajor(@PathVariable("majorId") Integer majorId) {
-        return studentService.getStudentsByMajor(majorId);
-    }
 
     @PostMapping
-    public void registerNewStudent(@RequestBody Student student) {
+    public void registerNewStudent(@RequestBody StudentRequest student) {
         studentService.addNewStudent(student);
     }
 
@@ -39,7 +35,7 @@ public class StudentController {
     @PutMapping(path = "{studentId}")
     public void updateStudent(
             @PathVariable("studentId") Long studentId,
-            @RequestBody Student student) {
+            @RequestBody StudentRequest student) {
         studentService.updateStudent(studentId, student);
     }
 }

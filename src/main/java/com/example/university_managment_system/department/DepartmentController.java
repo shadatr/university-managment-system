@@ -26,11 +26,6 @@ public class DepartmentController {
         return departmentService.getDepartment(departmentId);
     }
 
-    @GetMapping(path = "departmentMajors/{departmentId}")
-    public List<Major> getDepartmentMajors(@PathVariable("departmentId") Long departmentId) {
-        return departmentService.getDepartmentMajors(departmentId);
-    }
-
 
     @PostMapping
     public void registerNewDepartment(@RequestBody Department Department) {
