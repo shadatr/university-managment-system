@@ -2,24 +2,20 @@ package com.example.university_managment_system.studentCourse;
 
 import com.example.university_managment_system.CourseSections.CourseSection;
 import com.example.university_managment_system.CourseSections.CourseSectionRepository;
-import com.example.university_managment_system.major.Major;
 import com.example.university_managment_system.student.Student;
 import com.example.university_managment_system.student.StudentRepository;
-import com.example.university_managment_system.teacher.Teacher;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
-public class StudentCourseCourseService {
+public class StudentCourseService {
     private final StudentCourseRepository studentCourseRepository;
     private final StudentRepository studentRepository;
     private final CourseSectionRepository courseSectionRepository;
 
     @Autowired
-    public StudentCourseCourseService(StudentCourseRepository studentCourseRepository, StudentRepository studentRepository, CourseSectionRepository courseSectionRepository) {
+    public StudentCourseService(StudentCourseRepository studentCourseRepository, StudentRepository studentRepository, CourseSectionRepository courseSectionRepository) {
         this.studentCourseRepository = studentCourseRepository;
         this.studentRepository = studentRepository;
         this.courseSectionRepository = courseSectionRepository;
