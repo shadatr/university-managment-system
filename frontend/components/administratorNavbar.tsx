@@ -21,22 +21,22 @@ const studnetComponents: {
 }[] = [
   {
     title: "Register Student",
-    href: "/adminstrator/registerStudent",
+    href: "/administrator/registerStudent",
     description: "Add a new student to the university.",
   },
   {
     title: "Student Information",
-    href: "/adminstrator/studentInformation",
+    href: "/administrator/studentInformation",
     description: "Search for student and edit student information.",
   },
   {
     title: "Student Courses",
-    href: "/adminstrator/studentCourses",
+    href: "/administrator/studentCourses",
     description: "View student courses and accept sleceted courses.",
   },
   {
     title: "Student grades",
-    href: "/adminstrator/studentGrades",
+    href: "/administrator/studentGrades",
     description: "View student grades and gpa for all semester.",
   },
 ];
@@ -48,22 +48,22 @@ const TeacherComponents: {
 }[] = [
   {
     title: "Register Teacher",
-    href: "/adminstrator/registerTeacher",
+    href: "/administrator/registerTeacher",
     description: "Add a new teacher to the university.",
   },
   {
     title: "Teacher Information",
-    href: "/adminstrator/teacherInformation",
+    href: "/administrator/teacherInformation",
     description: "Search for teacher and edit teacher information.",
   },
   {
     title: "Teacher Courses",
-    href: "/adminstrator/teacherCourses",
+    href: "/administrator/teacherCourses",
     description: "View teacher currect courses.",
   },
   {
     title: "Teacher advisor students",
-    href: "/adminstrator/teacherAdvisorStudents",
+    href: "/administrator/teacherAdvisorStudents",
     description:
       "View teacher advisor students, add, delete or upadte advisor students.",
   },
@@ -76,12 +76,12 @@ const AdministratorComponents: {
   }[] = [
     {
       title: "Register Admin",
-      href: "/adminstrator/registerAdmin",
+      href: "/administrator/registerAdmin",
       description: "Add a new Admin to the university.",
     },
     {
       title: "Admin Information",
-      href: "/adminstrator/adminInformation",
+      href: "/administrator/adminInformation",
       description: "Search for admin and edit admin information.",
     }
   ];
@@ -93,42 +93,42 @@ const faculitiesComponents: {
   }[] = [
     {
       title: "Register Department",
-      href: "/adminstrator/registerDepartment",
+      href: "/administrator/registerDepartment",
       description: "Add a new Department to the university.",
     },
     {
       title: "Department Information",
-      href: "/adminstrator/departmentInformation",
+      href: "/administrator/departmentInformation",
       description: "Search for department and edit department majors.",
     },
     {
         title: "Register major",
-        href: "/adminstrator/registerMajor",
+        href: "/administrator/registerMajor",
         description: "Add a new major to the university.",
       },
       {
         title: "Major Information",
-        href: "/adminstrator/majorInformation",
+        href: "/administrator/majorInformation",
         description: "Search for department and edit major students and courses.",
       },
       {
         title: "Register Course",
-        href: "/adminstrator/registerCourse",
+        href: "/administrator/registerCourse",
         description: "Add a new Course to the university.",
       },
       {
         title: "Course Information",
-        href: "/adminstrator/courseInformation",
+        href: "/administrator/courseInformation",
         description: "Search for course and edit course information.",
       },
       {
         title: "Register Cousre Section",
-        href: "/adminstrator/registerCourseSection",
+        href: "/administrator/registerCourseSection",
         description: "Add a new Course Section to the university.",
       },
       {
         title: "Course Section Information",
-        href: "/adminstrator/courseSectionInformation",
+        href: "/administrator/courseSectionInformation",
         description: "Search for courses sections and edit thier information (students, teacher and grades).",
       },
 

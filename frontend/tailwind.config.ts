@@ -1,3 +1,4 @@
+import { nextui } from "@nextui-org/react"
 import type { Config } from "tailwindcss"
 
 const config = {
@@ -7,6 +8,8 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+
 	],
   prefix: "",
   theme: {
@@ -19,6 +22,7 @@ const config = {
     },
     extend: {
       fontSize:{
+        xsm: "0.75rem",
         sm: "0.875rem",
         base: "1rem",
         lg: "1.125rem",
@@ -81,7 +85,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"),nextui()],
 } satisfies Config
 
 export default config

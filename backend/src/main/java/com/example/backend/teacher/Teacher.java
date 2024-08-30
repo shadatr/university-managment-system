@@ -13,8 +13,8 @@ public class Teacher {
     private String name;
     private String surname;
     private String email;
-    private Integer phone;
-    private LocalDate birth_date;
+    private long phone;
+    private String birth_date;
     private String address;
     private String major;
     private String Department;
@@ -24,7 +24,7 @@ public class Teacher {
 
     public Teacher() {
     }
-    public Teacher(long id, String name, String surname, String email, Integer phone, LocalDate birth_date, String address, String major, Integer Department, String password, List<CourseSection> courseSections) {
+    public Teacher(long id, String name, String surname, String email, long phone, String birth_date, String address, String major, String Department, String password, List<CourseSection> courseSections) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -38,7 +38,7 @@ public class Teacher {
         this.courseSections = courseSections;
     }
 
-    public Teacher(String name, String surname, String email, Integer phone, LocalDate birth_date, String address, String major, Integer Department, String password, List<CourseSection> courseSections) {
+    public Teacher(String name, String surname, String email, long phone, String birth_date, String address, String major, String Department, String password, List<CourseSection> courseSections) {
         this.name = name;
         this.email = email;
         this.surname = surname;
@@ -75,16 +75,16 @@ public class Teacher {
     public void setEmail(String email) {
         this.email = email;
     }
-    public Integer getPhone() {
+    public long getPhone() {
         return this.phone;
     }
-    public void setPhone(Integer phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
-    public LocalDate getBirth_date() {
+    public String getBirth_date() {
         return this.birth_date;
     }
-    public void setBirth_date(LocalDate birth_date) {
+    public void setBirth_date(String birth_date) {
         this.birth_date = birth_date;
     }
     public String getAddress() {
@@ -99,10 +99,10 @@ public class Teacher {
     public void setMajor(String major) {
         this.major = major;
     }
-    public Integer getDepartment() {
+    public String getDepartment() {
         return this.Department;
     }
-    public void setDepartment(Integer Department) {
+    public void setDepartment(String Department) {
         this.Department = Department;
     }
     public String getPassword() {

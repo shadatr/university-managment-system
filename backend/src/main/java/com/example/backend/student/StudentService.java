@@ -33,16 +33,21 @@ public class StudentService {
 
     public void addNewStudent(StudentRequest student) {
         Optional<Major> major = majorRepository.findById(student.getMajor_id());
-        Optional<Teacher> advisor = teacherRepository.findById(student.getAdvisor());
+        Optional<Teacher> advisor = teacherRepository.findById(student.getAdvisor_id());
+
+        Optional<Student> studentExists = studentRepository.findStudentByEmail(student.getEmail());
+        if (studentExists.isPresent()) {
+            throw new IllegalStateException("email taken");
+        }
 
         Student newStudent = new Student();
         newStudent.setName(student.getName());
         newStudent.setSurname(student.getSurname());
         newStudent.setEmail(student.getEmail());
-        newStudent.setMajor(major.orElseThrow(() -> null));
+        newStudent.setMajor(major.orElseThrow(() -> new RuntimeException("Major not found")));
         newStudent.setSemester(student.getSemester());
         newStudent.setBirth_date(student.getBirth_date());
-        newStudent.setAdvisor(advisor.orElseThrow(() -> null));
+        newStudent.setAdvisor(advisor.orElseThrow(() -> new RuntimeException("Advisor not found")));
         newStudent.setPhone(student.getPhone());
         newStudent.setAddress(student.getAddress());
         newStudent.setPassword(student.getPassword());
@@ -65,7 +70,7 @@ public class StudentService {
                         "student with id " + student.getId() + " does not exist"
         ));
         Major major = majorRepository.findById(student.getMajor_id()).orElseThrow(() -> new RuntimeException("Major not found"));
-        Teacher advisor = teacherRepository.findById(student.getAdvisor()).orElseThrow(() -> new RuntimeException("Advisor not found"));
+        Teacher advisor = teacherRepository.findById(student.getAdvisor_id()).orElseThrow(() -> new RuntimeException("Advisor not found"));
         studentToUpdate.setName(student.getName());
         studentToUpdate.setSurname(student.getSurname());
         studentToUpdate.setEmail(student.getEmail());

@@ -13,14 +13,14 @@ public class Administrator {
     private String name;
     private String surname;
     private String email;
-    private Integer phone;
-    private LocalDate birth_date;
+    private long phone;
+    private String birth_date;
     private String address;
-    private  String password;
+    private String password;
 
     public Administrator() {
     }
-    public Administrator(long id, String name, String surname, String email, Integer phone, LocalDate birth_date, String address, String password) {
+    public Administrator(long id, String name, String surname, String email, long phone, String birth_date, String address, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -31,7 +31,7 @@ public class Administrator {
         this.password = password;
     }
 
-    public Administrator(String name, String surname, String email, Integer phone, LocalDate birth_date, String address, String password) {
+    public Administrator(String name, String surname, String email, long phone, String birth_date, String address, String password) {
         this.name = name;
         this.email = email;
         this.surname = surname;
@@ -65,16 +65,16 @@ public class Administrator {
     public void setEmail(String email) {
         this.email = email;
     }
-    public Integer getPhone() {
+    public long getPhone() {
         return this.phone;
     }
-    public void setPhone(Integer phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
-    public LocalDate getBirth_date() {
+    public String getBirth_date() {
         return this.birth_date;
     }
-    public void setBirth_date(LocalDate birth_date) {
+    public void setBirth_date(String birth_date) {
         this.birth_date = birth_date;
     }
     public String getAddress() {

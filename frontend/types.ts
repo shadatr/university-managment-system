@@ -1,5 +1,5 @@
 export type StudentType ={
-    id: number;
+    id?: number;
     name: string;
     surname: string;
     email: string;
@@ -7,9 +7,11 @@ export type StudentType ={
     address: string;
     birth_date: string;
     password: string;
-    major: MajorType;
-    advisor: TeacherType;
-    studentCourses: StudentCourseType[];
+    major?: MajorType;
+    advisor?: TeacherType;
+    studentCourses?: StudentCourseType[];
+    major_id: number;
+    advisor_id?: number;
 }
 
 export type TeacherType ={
