@@ -29,8 +29,8 @@ public class Student {
     @JsonIgnore
     private Teacher advisor;
     private String password;
-//    @OneToMany(mappedBy = "section", fetch = FetchType.EAGER)
-//    private List<StudentCourse> studentCourses;
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    private List<StudentCourse> studentCourses;
 
     public Student() {
     }
@@ -46,7 +46,7 @@ public class Student {
         this.semester = semester;
         this.advisor = advisor;
         this.password = password;
-//        this.studentCourses = studentCourses;
+        this.studentCourses = studentCourses;
     }
 
     public Student(String name, String surname, String email, Integer phone, LocalDate birth_date, String address, Major major, Integer semester, Teacher advisor, String password, List<StudentCourse> studentCourses) {
@@ -60,7 +60,7 @@ public class Student {
         this.semester = semester;
         this.advisor = advisor;
         this.password = password;
-//        this.studentCourses = studentCourses;
+        this.studentCourses = studentCourses;
     }
 
     public long getId() {
@@ -129,12 +129,12 @@ public class Student {
     public void setPassword(String password) {
         this.password = password;
     }
-//    public List<StudentCourse> getStudentCourses() {
-//        return this.studentCourses;
-//    }
-//    public void setStudentCourses(List<StudentCourse> studentCourses) {
-//        this.studentCourses = studentCourses;
-//    }
+    public List<StudentCourse> getStudentCourses() {
+        return this.studentCourses;
+    }
+    public void setStudentCourses(List<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
+    }
 
     public String toString() {
         return "Student{id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", phone=" + phone + ", birth_date=" + birth_date + ", address=" + address + ", major=" + major + ", semester=" + semester + ", advisor=" + advisor + "}";

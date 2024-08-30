@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "course_section")
 public class CourseSection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,23 +23,26 @@ public class CourseSection {
     @JsonIgnore
     private Teacher teacher;
     private String semester;
+    @OneToMany(mappedBy = "section", fetch = FetchType.EAGER)
+    private List<StudentCourse> studentCourses;
 
     public CourseSection() {
     }
-    public CourseSection(long id, String name, Course course, Teacher teacher, String semester) {
+    public CourseSection(long id, String name, Course course, Teacher teacher, String semester, List<StudentCourse> studentCourses) {
         this.id = id;
         this.name = name;
         this.course = course;
         this.teacher = teacher;
         this.semester = semester;
-
+        this.studentCourses = studentCourses;
     }
 
-    public CourseSection(String name, Course course, Teacher teacher, String semester) {
+    public CourseSection(String name, Course course, Teacher teacher, String semester, List<StudentCourse> studentCourses) {
         this.name = name;
         this.course = course;
         this.teacher = teacher;
         this.semester = semester;
+        this.studentCourses = studentCourses;
     }
 
     public long getId() {
@@ -71,6 +74,12 @@ public class CourseSection {
     }
     public void setSemester(String semester) {
         this.semester = semester;
+    }
+    public List<StudentCourse> getStudentCourses() {
+        return this.studentCourses;
+    }
+    public void setStudentCourses(List<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
     }
 
 }
