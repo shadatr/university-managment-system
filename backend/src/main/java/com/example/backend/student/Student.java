@@ -19,6 +19,7 @@ public class Student {
     private Integer phone;
     private LocalDate birth_date;
     private String address;
+    private String password;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "major_id", nullable = false)
     @JsonIgnore
@@ -28,7 +29,6 @@ public class Student {
     @JoinColumn(name = "advisor", nullable = false)
     @JsonIgnore
     private Teacher advisor;
-    private String password;
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     private List<StudentCourse> studentCourses;
 

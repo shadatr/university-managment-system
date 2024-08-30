@@ -17,7 +17,7 @@ public class Teacher {
     private LocalDate birth_date;
     private String address;
     private String major;
-    private Integer Department;
+    private String Department;
     private String password;
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     private List<CourseSection> courseSections;
