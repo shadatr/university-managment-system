@@ -16,11 +16,9 @@ public class MajorCourses {
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "major_id", nullable = false)
-    @JsonIgnore
     private Major major;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
-    @JsonIgnore
     private Course course;
 
     public MajorCourses() {

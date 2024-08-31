@@ -16,14 +16,13 @@ public class CourseSection {
     private String name;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
-    @JsonIgnore
     private Course course;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id", nullable = false)
-    @JsonIgnore
     private Teacher teacher;
     private String semester;
     @OneToMany(mappedBy = "section", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<StudentCourse> studentCourses;
 
     public CourseSection() {

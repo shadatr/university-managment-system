@@ -12,6 +12,7 @@ public class Department {
     private long id;
     private String name;
     @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Major> majors;
 
     public Department() {

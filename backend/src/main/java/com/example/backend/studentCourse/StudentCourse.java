@@ -14,11 +14,9 @@ public class StudentCourse {
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
-    @JsonIgnore
     private Student student;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id", nullable = false)
-    @JsonIgnore
     private CourseSection section;
     private Integer homework;
     private Integer midterm;

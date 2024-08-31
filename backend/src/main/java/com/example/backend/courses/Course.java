@@ -15,8 +15,10 @@ public class Course {
     private Integer credits;
     private Integer hours;
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<MajorCourses> majorCourses;
     @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<CourseSection> courseSections;
 
     public Course() {

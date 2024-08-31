@@ -20,6 +20,7 @@ public class Teacher {
     private String Department;
     private String password;
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<CourseSection> courseSections;
 
     public Teacher() {

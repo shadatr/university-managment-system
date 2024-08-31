@@ -16,12 +16,13 @@ public class Major {
     private String name;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
-    @JsonIgnore
     private Department department;
     private Integer credits;
     @OneToMany(mappedBy = "major", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Student> students;
     @OneToMany(mappedBy = "major", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<MajorCourses> majorCourses;
 
     public Major() {
