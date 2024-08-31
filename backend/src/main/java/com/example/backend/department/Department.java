@@ -1,7 +1,7 @@
 package com.example.backend.department;
 import com.example.backend.major.Major;
 import jakarta.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 @Entity

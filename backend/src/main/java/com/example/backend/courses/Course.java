@@ -2,6 +2,7 @@ package com.example.backend.courses;
 import com.example.backend.CourseSection.CourseSection;
 import com.example.backend.majorCourses.MajorCourses;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
