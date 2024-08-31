@@ -35,6 +35,7 @@ public class MajorService {
         Major major = new Major();
         major.setName(majorRequest.getName());
         major.setDepartment(department);
+        major.setCredits(majorRequest.getCredits());
         majorRepository.save(major);
     }
 
