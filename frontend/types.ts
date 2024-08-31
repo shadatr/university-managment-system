@@ -39,9 +39,9 @@ export type AdministratorType ={
 }
 
 export type DepartmentType ={   
-    id: number;
+    id?: number;
     name: string;
-    majors: MajorType[];
+    majors?: MajorType[];
 }
 
 export type MajorType ={

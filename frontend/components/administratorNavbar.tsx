@@ -69,69 +69,62 @@ const TeacherComponents: {
 ];
 
 const AdministratorComponents: {
-    title: string;
-    href: string;
-    description: string;
-  }[] = [
-    {
-      title: "Register Admin",
-      href: "/administrator/registerAdmin",
-      description: "Add a new Admin to the university.",
-    },
-    {
-      title: "Admin Information",
-      href: "/administrator/administrators",
-      description: "Search for admin and edit admin information.",
-    }
-  ];
+  title: string;
+  href: string;
+  description: string;
+}[] = [
+  {
+    title: "Register Admin",
+    href: "/administrator/registerAdmin",
+    description: "Add a new Admin to the university.",
+  },
+  {
+    title: "Admin Information",
+    href: "/administrator/administrators",
+    description: "Search for admin and edit admin information.",
+  },
+];
 
 const faculitiesComponents: {
-    title: string;
-    href: string;
-    description: string;
-  }[] = [
-    {
-      title: "Register Department",
-      href: "/administrator/registerDepartment",
-      description: "Add a new Department to the university.",
-    },
-    {
-      title: "Department Information",
-      href: "/administrator/departmentInformation",
-      description: "Search for department and edit department majors.",
-    },
-    {
-        title: "Register major",
-        href: "/administrator/registerMajor",
-        description: "Add a new major to the university.",
-      },
-      {
-        title: "Major Information",
-        href: "/administrator/majorInformation",
-        description: "Search for major and edit major students and courses.",
-      },
-      {
-        title: "Register Course",
-        href: "/administrator/registerCourse",
-        description: "Add a new Course to the university.",
-      },
-      {
-        title: "Course Information",
-        href: "/administrator/courseInformation",
-        description: "Search for course and edit course information.",
-      },
-      {
-        title: "Register Cousre Section",
-        href: "/administrator/registerCourseSection",
-        description: "Add a new Course Section to the university.",
-      },
-      {
-        title: "Course Section Information",
-        href: "/administrator/courseSectionInformation",
-        description: "Search for courses sections and edit thier information (students, teacher and grades).",
-      },
+  title: string;
+  href: string;
+  description: string;
+}[] = [
+  {
+    title: "Department",
+    href: "/administrator/department",
+    description: "Add, view and delete university departments.",
+  },
 
-  ];
+  {
+    title: "Major",
+    href: "/administrator/major",
+    description:
+      "Add, view and delete major to the university and view major students.",
+  },
+
+  {
+    title: "Register Course",
+    href: "/administrator/registerCourse",
+    description: "Add a new Course to the university.",
+  },
+  {
+    title: "Course Information",
+    href: "/administrator/courseInformation",
+    description: "Search for course and edit course information.",
+  },
+  {
+    title: "Register Cousre Section",
+    href: "/administrator/registerCourseSection",
+    description: "Add a new Course Section to the university.",
+  },
+  {
+    title: "Course Section Information",
+    href: "/administrator/courseSectionInformation",
+    description:
+      "Search for courses sections and edit thier information (students, teacher and grades).",
+  },
+];
 
 const AdministratorNavbar = () => {
   return (
@@ -139,7 +132,9 @@ const AdministratorNavbar = () => {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">Students</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">
+              Students
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {studnetComponents.map((component) => (
@@ -155,7 +150,9 @@ const AdministratorNavbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">Teachers</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">
+              Teachers
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {TeacherComponents.map((component) => (
@@ -171,7 +168,9 @@ const AdministratorNavbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">Administrators</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">
+              Administrators
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {AdministratorComponents.map((component) => (
@@ -187,7 +186,9 @@ const AdministratorNavbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">Faculities</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">
+              Faculities
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {faculitiesComponents.map((component) => (
