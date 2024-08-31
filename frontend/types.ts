@@ -27,8 +27,8 @@ export type TeacherType ={
     department: string;
     courseSection?: CourseSectionType[];
 }
-export type AdminisratorType ={
-    id: number;
+export type AdministratorType ={
+    id?: number;
     name: string;
     surname: string;
     email: string;
