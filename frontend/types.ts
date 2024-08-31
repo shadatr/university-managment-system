@@ -15,7 +15,7 @@ export type StudentType ={
 }
 
 export type TeacherType ={
-    id: number;
+    id?: number;
     name: string;
     surname: string;
     email: string;
@@ -25,7 +25,7 @@ export type TeacherType ={
     password: string;
     major:string;
     department: string;
-    courseSection: CourseSectionType[];
+    courseSection?: CourseSectionType[];
 }
 export type AdminisratorType ={
     id: number;

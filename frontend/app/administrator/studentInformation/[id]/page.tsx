@@ -267,7 +267,7 @@ const Page = ({ params }: { params: { id: string } }) => {
               {edit ? (
                 <TableCell>
                   <Select
-                    value={student?.advisor?.id.toString()}
+                    value={student?.advisor?.id?.toString()}
                     onValueChange={(e) => setSelectedTeacher(parseInt(e))}
                   >
                     <SelectTrigger className="w-[30rem]">
@@ -279,7 +279,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                         {teachers.map((teacher) => (
                           <SelectItem
                             key={teacher.id}
-                            value={teacher.id.toString()}
+                            value={teacher.id?.toString()||""}
                           >
                             {teacher.name} {teacher.surname}
                           </SelectItem>
