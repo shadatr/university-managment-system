@@ -11,7 +11,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 const studnetComponents: {
@@ -26,7 +25,7 @@ const studnetComponents: {
   },
   {
     title: "Student Information",
-    href: "/administrator/studentInformation",
+    href: "/administrator/students",
     description: "Search for student and edit student information.",
   },
   {
@@ -109,7 +108,7 @@ const faculitiesComponents: {
       {
         title: "Major Information",
         href: "/administrator/majorInformation",
-        description: "Search for department and edit major students and courses.",
+        description: "Search for major and edit major students and courses.",
       },
       {
         title: "Register Course",

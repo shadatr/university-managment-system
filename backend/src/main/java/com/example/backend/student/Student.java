@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-
+import com.example.backend.major.MajorRequest;
 @Entity
 @Table
 public class Student {
@@ -20,17 +20,17 @@ public class Student {
     private String birth_date;
     private String address;
     private String password;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER) // Change to EAGER if needed
     @JoinColumn(name = "major_id", nullable = false)
-    @JsonIgnore
     private Major major;
     private Integer semester;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advisor_id", nullable = false)
-    @JsonIgnore
     private Teacher advisor;
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<StudentCourse> studentCourses;
+
 
     public Student() {
     }

@@ -25,6 +25,10 @@ public class StudentService {
         this.teacherRepository = teacherRepository;
     }
 
+    public List<Student> getStudents() {
+        return studentRepository.findAll();
+    }
+
     public Student getStudent(Long studentId) {
         return studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException(
                 "student with id " + studentId + " does not exist"

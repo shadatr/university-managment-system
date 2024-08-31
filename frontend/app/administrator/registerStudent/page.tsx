@@ -14,7 +14,7 @@ import axios from "axios";
 import { MajorType, StudentType, TeacherType } from "@/types";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -56,25 +56,26 @@ const Page = () => {
   }, []);
 
   const onSubmit = () => {
-      if (password !== passwordConfirmation) {
-          toast.error("Passwords do not match");
-          return;
-        }
-        if (
-            !name ||
-            !surname ||
-            !phone ||
-            !email ||
-            !address ||
-            !password ||
-            !selectedMajor ||
-            !date||
-            !selectedTeacher
-            ) {
-                toast.error("Please fill all fields");
-                return;
-            }
-            console.log(`${date?.getDay()}-${date?.getMonth()}-${date?.getFullYear()}`);
+    if (password !== passwordConfirmation) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    if (
+      !name ||
+      !surname ||
+      !phone ||
+      !email ||
+      !address ||
+      !password ||
+      !selectedMajor ||
+      !date ||
+      !selectedTeacher
+    ) {
+      toast.error("Please fill all fields");
+      return;
+    }
+    console.log(`${date?.getDay()}-${date?.getMonth()}-${date?.getFullYear()}`);
+    
     const data: StudentType = {
       name,
       surname,
@@ -83,11 +84,9 @@ const Page = () => {
       address,
       password,
       major_id: selectedMajor,
-      birth_date:date?.toISOString().split('T')[0],
+      birth_date: date?.toISOString().split("T")[0],
       advisor_id: selectedTeacher,
     };
-
-    console.log(data);
 
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/student`, data)
@@ -97,7 +96,7 @@ const Page = () => {
       .catch((e) => {
         toast.error("Error registering student");
         console.error(e);
-    });
+      });
   };
 
   return (
@@ -197,7 +196,12 @@ const Page = () => {
         placeholder="Password Confirmation"
         className="w-[30rem]"
       />
-      <Button className="w-[30rem] bg-baby-blue hover:bg-blue-300" onClick={onSubmit}>Register</Button>
+      <Button
+        className="w-[30rem] bg-baby-blue hover:bg-blue-300"
+        onClick={onSubmit}
+      >
+        Register
+      </Button>
     </div>
   );
 };
