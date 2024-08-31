@@ -25,9 +25,7 @@ import { VerticalDotsIcon } from "@/components/ui/verticalDotsIcon";
 import { SearchIcon } from "@/components/ui/searchIcon";
 import { StudentType } from "@/types";
 import axios from "axios";
-import { Link } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "name",

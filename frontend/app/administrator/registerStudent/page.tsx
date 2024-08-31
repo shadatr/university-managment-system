@@ -14,7 +14,7 @@ import axios from "axios";
 import { MajorType, StudentType, TeacherType } from "@/types";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";

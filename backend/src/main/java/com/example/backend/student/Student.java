@@ -24,7 +24,7 @@ public class Student {
     @JoinColumn(name = "major_id", nullable = false)
     private Major major;
     private Integer semester;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "advisor_id", nullable = false)
     private Teacher advisor;
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
