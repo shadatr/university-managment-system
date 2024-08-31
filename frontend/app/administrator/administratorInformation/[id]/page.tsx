@@ -1,5 +1,5 @@
 "use client";
-import { MajorType, StudentType, TeacherType } from "@/types";
+import { MajorType, AdministratorType } from "@/types";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -11,15 +11,7 @@ import {
   TableCell,
   Input,
 } from "@nextui-org/react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import {
   Popover,
   PopoverContent,
@@ -33,38 +25,23 @@ import { Calendar } from "@/components/ui/calendar";
 import { toast } from "sonner";
 
 const Page = ({ params }: { params: { id: string } }) => {
-  const [student, setStudent] = useState<StudentType>();
+  const [administrator, setAdministrator] = useState<AdministratorType>();
   const [edit, setEdit] = useState<boolean>(false);
   const name = useRef<HTMLInputElement>(null);
   const surname = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const phone = useRef<HTMLInputElement>(null);
   const address = useRef<HTMLInputElement>(null);
-  const [teachers, setTeachers] = useState<TeacherType[]>([]);
-  const [majors, setMajors] = useState<MajorType[]>([]);
-  const [selectedMajor, setSelectedMajor] = useState<number>();
-  const [selectedTeacher, setSelectedTeacher] = useState<number>();
   const [date, setDate] = useState<Date>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/student/${params.id}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/administrator/${params.id}`
         );
-        const data: StudentType = response.data;
-        setStudent(data);
-        const response3 = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/major`
-        );
-        const majors: MajorType[] = response3.data;
-        setMajors(majors);
-
-        const response2 = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teacher`
-        );
-        const teachers: TeacherType[] = response2.data;
-        setTeachers(teachers);
+        const data: AdministratorType = response.data;
+        setAdministrator(data);
       } catch (error) {
         console.log(error);
       }
@@ -73,26 +50,24 @@ const Page = ({ params }: { params: { id: string } }) => {
   }, [edit]);
 
   const handleEdit = async () => {
-    const data={
+    const data = {
       name: name.current?.value,
       surname: surname.current?.value,
-      birth_date: date?.toISOString().split("T")[0] || student?.birth_date,
+      birth_date: date?.toISOString().split("T")[0] || administrator?.birth_date,
       email: email.current?.value,
-      major_id: selectedMajor||student?.major?.id,
-      phone: parseInt(phone.current?.value||""),
+      phone: parseInt(phone.current?.value || ""),
       address: address.current?.value,
-      advisor_id: selectedTeacher||student?.advisor?.id,
-    }
+    };
     try {
-      await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/student/${params.id}`,
-        data
-      ).then(() => {
-        setEdit(!edit);
-        toast.success("Student information updated successfully");
-      }
-      );
-   
+      await axios
+        .put(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/administrator/${params.id}`,
+          data
+        )
+        .then(() => {
+          setEdit(!edit);
+          toast.success("administrator information updated successfully");
+        });
     } catch (error) {
       toast.error("An error occurred");
     }
@@ -108,7 +83,7 @@ const Page = ({ params }: { params: { id: string } }) => {
               handleEdit();
             }}
           >
-             Save Changes
+            Save Changes
           </Button>
         ) : (
           <Button
@@ -117,12 +92,12 @@ const Page = ({ params }: { params: { id: string } }) => {
               setEdit(!edit);
             }}
           >
-           Edit Student Information
+            Edit Administrator Information
           </Button>
         )}
         <Table isStriped aria-label="Example static collection table ">
           <TableHeader>
-            <TableColumn>STUDENT INFORMATION</TableColumn>
+            <TableColumn>Administrator INFORMATION</TableColumn>
             <TableColumn>{""}</TableColumn>
           </TableHeader>
           <TableBody>
@@ -132,13 +107,13 @@ const Page = ({ params }: { params: { id: string } }) => {
                 <TableCell>
                   <Input
                     size="sm"
-                    defaultValue={student?.name || ""}
+                    defaultValue={administrator?.name || ""}
                     type="text"
                     ref={name}
                   />
                 </TableCell>
               ) : (
-                <TableCell>{student?.name}</TableCell>
+                <TableCell>{administrator?.name}</TableCell>
               )}
             </TableRow>
             <TableRow key="2">
@@ -147,13 +122,13 @@ const Page = ({ params }: { params: { id: string } }) => {
                 <TableCell>
                   <Input
                     size="sm"
-                     defaultValue={student?.surname}
+                    defaultValue={administrator?.surname}
                     type="text"
                     ref={surname}
                   />
                 </TableCell>
               ) : (
-                <TableCell>{student?.surname}</TableCell>
+                <TableCell>{administrator?.surname}</TableCell>
               )}
             </TableRow>
             <TableRow key="3">
@@ -184,7 +159,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                   </Popover>
                 </TableCell>
               ) : (
-                <TableCell>{student?.birth_date}</TableCell>
+                <TableCell>{administrator?.birth_date}</TableCell>
               )}
             </TableRow>
             <TableRow key="8">
@@ -193,58 +168,29 @@ const Page = ({ params }: { params: { id: string } }) => {
                 <TableCell>
                   <Input
                     size="sm"
-                     defaultValue={student?.email}
+                    defaultValue={administrator?.email}
                     type="text"
                     ref={email}
                   />
                 </TableCell>
               ) : (
-                <TableCell>{student?.email}</TableCell>
+                <TableCell>{administrator?.email}</TableCell>
               )}
             </TableRow>
-            <TableRow key="4">
-              <TableCell className="w-[100px]">Major</TableCell>
-              {edit ? (
-                <TableCell>
-                  <Select
-                     value={student?.major?.id.toString()}
-                    onValueChange={(e) => setSelectedMajor(parseInt(e))}
-                  >
-                    <SelectTrigger className="w-[30rem]">
-                      <SelectValue placeholder="Select a major" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Majors</SelectLabel>
-                        {majors.map((major) => (
-                          <SelectItem
-                            key={major.id}
-                            value={major.id.toString()}
-                          >
-                            {major.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </TableCell>
-              ) : (
-                <TableCell>{student?.major?.name}</TableCell>
-              )}
-            </TableRow>
+     
             <TableRow key="5">
               <TableCell className="w-[100px]">Phone</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
                     size="sm"
-                    defaultValue={student?.phone.toString()}
+                    defaultValue={administrator?.phone.toString()}
                     type="number"
                     ref={phone}
                   />
                 </TableCell>
               ) : (
-                <TableCell>{student?.phone}</TableCell>
+                <TableCell>{administrator?.phone}</TableCell>
               )}
             </TableRow>
             <TableRow key="6">
@@ -253,43 +199,13 @@ const Page = ({ params }: { params: { id: string } }) => {
                 <TableCell>
                   <Input
                     size="sm"
-                    defaultValue={student?.address}
+                    defaultValue={administrator?.address}
                     type="text"
                     ref={address}
                   />
                 </TableCell>
               ) : (
-                <TableCell>{student?.address}</TableCell>
-              )}
-            </TableRow>
-            <TableRow key="7">
-              <TableCell className="w-[100px]">Advisor</TableCell>
-              {edit ? (
-                <TableCell>
-                  <Select
-                    value={student?.advisor?.id?.toString()}
-                    onValueChange={(e) => setSelectedTeacher(parseInt(e))}
-                  >
-                    <SelectTrigger className="w-[30rem]">
-                      <SelectValue placeholder="Select a Advisor" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Advisors</SelectLabel>
-                        {teachers.map((teacher) => (
-                          <SelectItem
-                            key={teacher.id}
-                            value={teacher.id?.toString()||""}
-                          >
-                            {teacher.name} {teacher.surname}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </TableCell>
-              ) : (
-                <TableCell>{student?.name}</TableCell>
+                <TableCell>{administrator?.address}</TableCell>
               )}
             </TableRow>
           </TableBody>

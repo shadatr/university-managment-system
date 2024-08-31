@@ -52,7 +52,7 @@ const TeacherComponents: {
   },
   {
     title: "Teacher Information",
-    href: "/administrator/teacherInformation",
+    href: "/administrator/teachers",
     description: "Search for teacher and edit teacher information.",
   },
   {
@@ -80,7 +80,7 @@ const AdministratorComponents: {
     },
     {
       title: "Admin Information",
-      href: "/administrator/adminInformation",
+      href: "/administrator/administrators",
       description: "Search for admin and edit admin information.",
     }
   ];
