@@ -7,6 +7,7 @@ import com.example.backend.student.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class StudentCourseService {
@@ -26,6 +27,9 @@ public class StudentCourseService {
                 "StudentCourse with id " + StudentCourseId + " does not exist"
         ));
     }
+
+    public List<StudentCourse> getSectionStudents(Long sectionId) {
+        return studentCourseRepository.findSectionStudents(sectionId);}
 
     public void addNewStudentCourse(StudentCourseRequest studentCourse) {
         Student student = studentRepository.findById(studentCourse.getStudent_id()).orElseThrow(() -> null);

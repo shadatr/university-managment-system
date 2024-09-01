@@ -6,6 +6,7 @@ import com.example.backend.student.StudentRequest;
 import com.example.backend.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/studentCourse")
@@ -20,6 +21,11 @@ public class StudentCourseController {
     @GetMapping(path = "{studentCourseId}")
     public StudentCourse getStudentCourse(@PathVariable("studentCourseId") Long studentCourseId) {
         return studentCourseService.getStudentCourse(studentCourseId);
+    }
+
+    @GetMapping(path = "{sectionId}")
+    public List<StudentCourse> getSectionStudents(@PathVariable("sectionId") Long sectionId) {
+        return studentCourseService.getSectionStudents(sectionId);
     }
 
     @PostMapping

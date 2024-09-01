@@ -252,7 +252,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                         <div className="flex items-center gap-3">
                           <Tooltip content="Students Grades">
                             <Link
-                              href={`/administrator/students/grades/${section.id}`}
+                              href={`/administrator/grades/${section.id}`}
                               className="text-xsm cursor-pointer active:opacity-50"
                             >
                               <UsersIcon />

@@ -4,6 +4,7 @@ import com.example.backend.CourseSection.CourseSection;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.util.List;
 
 public class StudentCourseRequest {
     @Id
