@@ -104,9 +104,9 @@ const faculitiesComponents: {
   },
 
   {
-    title: "Register Course",
-    href: "/administrator/registerCourse",
-    description: "Add a new Course to the university.",
+    title: "Course",
+    href: "/administrator/course",
+    description: "Add a new Course and view courses.",
   },
   {
     title: "Course Information",

@@ -27,10 +27,8 @@ import { SearchIcon } from "@/components/ui/searchIcon";
 import { StudentType } from "@/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { DeleteIcon } from "@/components/ui/DeleteIcon";
-import { EyeIcon } from "@/components/ui/EyeIcon";
-import { toast } from "sonner";
 import Link from "next/link";
+import { EyeIcon } from "@/components/ui/EyeIcon";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "name",
@@ -49,7 +47,7 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 
-export default function App() {
+export default function App({ params }: { params: { id: string } }) {
   const [filterValue, setFilterValue] = React.useState("");
 
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
@@ -68,11 +66,12 @@ export default function App() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/student`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/student/majorStudents/${params.id}`
       );
       const students: StudentType[] = response.data;
       setStudents(students);
-        };
+      console.log(students);
+    };
     fetchData();
   }, []);
 
@@ -86,6 +85,7 @@ export default function App() {
       Array.from(visibleColumns).includes(column.uid)
     );
   }, [visibleColumns]);
+
 
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...students];
@@ -178,7 +178,6 @@ export default function App() {
     },
     []
   );
-  
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -233,17 +232,18 @@ export default function App() {
             Total {students.length} students
           </span>
           <div className="flex justify-center items-center gap-2">
-            <label className="flex items-center text-default-400 text-small">
-              Rows per page:
-              <select
-                className="bg-transparent outline-none text-default-400 text-small"
-                onChange={onRowsPerPageChange}
-              >
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-              </select>
-            </label>
+        
+          <label className="flex items-center text-default-400 text-small">
+            Rows per page:
+            <select
+              className="bg-transparent outline-none text-default-400 text-small"
+              onChange={onRowsPerPageChange}
+            >
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+            </select>
+          </label>
           </div>
         </div>
       </div>
@@ -260,7 +260,6 @@ export default function App() {
   const bottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-       
         <Pagination
           isCompact
           showControls

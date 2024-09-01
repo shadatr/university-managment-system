@@ -29,6 +29,7 @@ public class MajorService {
         ));
     }
 
+
     public void addNewMajor(@RequestBody MajorRequest majorRequest) {
         Department department = departmentRepository.findById(majorRequest.getDepartment_id()).orElseThrow(() -> new RuntimeException("Department not found"));
 

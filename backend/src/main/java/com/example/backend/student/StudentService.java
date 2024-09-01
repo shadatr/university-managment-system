@@ -35,6 +35,10 @@ public class StudentService {
         ));
     }
 
+    public List<Student> getMajorStudent(Long majorId) {
+        return studentRepository.findMajorStudents(majorId);
+    }
+
     public void addNewStudent(StudentRequest student) {
         Optional<Major> major = majorRepository.findById(student.getMajor_id());
         Optional<Teacher> advisor = teacherRepository.findById(student.getAdvisor_id());

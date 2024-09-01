@@ -8,6 +8,7 @@ import {
   TableRow,
   TableCell,
   Avatar,
+  Tooltip,
 } from "@nextui-org/react";
 import axios from "axios";
 import { DepartmentType, MajorType } from "@/types";
@@ -25,6 +26,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Link from "next/link";
+import { BookIcon } from "@/components/ui/BookIcon";
+import { UsersIcon } from "lucide-react";
 
 export default function App() {
   const [majors, setMajors] = useState<MajorType[]>([]);
@@ -147,19 +150,30 @@ export default function App() {
                 <TableCell className="flex w-full justify-between items-center">
                   <span>{major?.department.name}</span>
                   <div className="flex items-center gap-3">
-                    <Link href={`/administrators/students/${major.id}`}>
-                      <Avatar
-                        size="sm"
-                        showFallback
-                        src="https://images.unsplash.com/broken"
-                      />
-                    </Link>
-                    <span
-                      className="text-lg text-danger cursor-pointer active:opacity-50"
-                      onClick={() => handleDelete(major.id || 0)}
-                    >
-                      <DeleteIcon />
-                    </span>
+                    <Tooltip content="Courses">
+                      <Link
+                        href={`/administrator/courses/${major.id}`}
+                        className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                      >
+                        <BookIcon />
+                      </Link>
+                    </Tooltip>
+                    <Tooltip content="Students">
+                      <Link
+                        href={`/administrator/students/${major.id}`}
+                        className="text-xsm cursor-pointer active:opacity-50"
+                      >
+                        <UsersIcon />
+                      </Link>
+                    </Tooltip>
+                    <Tooltip content="Delete major">
+                      <span
+                        className="text-lg text-danger cursor-pointer active:opacity-50"
+                        onClick={() => handleDelete(major.id || 0)}
+                      >
+                        <DeleteIcon />
+                      </span>
+                    </Tooltip>
                   </div>
                 </TableCell>
               </TableRow>
