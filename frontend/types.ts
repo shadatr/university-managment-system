@@ -78,9 +78,9 @@ export type CourseSectionType ={
 }
 
 export type StudentCourseType ={
-    id: number;
-    student: StudentType;
-    section: CourseSectionType;
+    id?: number;
+    student?: StudentType;
+    section?: CourseSectionType;
     homeworks: number;
     midterm: number;
     final_exam: number;
@@ -88,5 +88,7 @@ export type StudentCourseType ={
     passed: boolean;
     active: boolean;
     accepted: boolean;
+    student_id: number;
+    section_id: number;
 }
 

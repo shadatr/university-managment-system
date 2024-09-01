@@ -1,5 +1,5 @@
 "use client";
-import { MajorType, CourseType, CourseSectionType, TeacherType } from "@/types";
+import { CourseType, CourseSectionType, TeacherType } from "@/types";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -26,7 +26,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Link from "next/link";
-import { BookIcon } from "@/components/ui/BookIcon";
 import { UsersIcon } from "lucide-react";
 
 const Page = ({ params }: { params: { id: string } }) => {

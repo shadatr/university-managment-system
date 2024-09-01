@@ -22,14 +22,19 @@ public class MajorCoursesController {
         return majorCoursesService.getMajorCourse(majorCourseId);
     }
 
+    @GetMapping(path = "major/{majorId}")
+    public List<MajorCourses> getMajorCourses(@PathVariable("majorId") Long majorId) {
+        return majorCoursesService.getMajorCourses(majorId);
+    }
+
     @PostMapping
     public void registerNewMajorCourse(@RequestBody MajorCoursesRequest major) {
         majorCoursesService.addNewMajorCourse(major);
     }
 
-    @DeleteMapping(path = "{majorId}")
-    public void deleteMajorCourse(@PathVariable("majorId") Long majorId) {
-        majorCoursesService.deleteMajorCourse(majorId);
+    @DeleteMapping(path = "{majorCourseId}")
+    public void deleteMajorCourse(@PathVariable("majorCourseId") Long majorCourseId) {
+        majorCoursesService.deleteMajorCourse(majorCourseId);
     }
 
     @PutMapping(path = "{majorId}")

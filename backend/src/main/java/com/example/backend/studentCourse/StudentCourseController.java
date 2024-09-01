@@ -23,6 +23,12 @@ public class StudentCourseController {
         return studentCourseService.getStudentCourse(studentCourseId);
     }
 
+    @GetMapping(path = "activeStudentCourses/{studentId}")
+    public List<StudentCourse> activeStudentCourses(@PathVariable("studentId") Long studentId) {
+
+        return studentCourseService.activeStudentCourses(studentId);
+    }
+
     @GetMapping(path = "{sectionId}")
     public List<StudentCourse> getSectionStudents(@PathVariable("sectionId") Long sectionId) {
         return studentCourseService.getSectionStudents(sectionId);
@@ -30,6 +36,7 @@ public class StudentCourseController {
 
     @PostMapping
     public void registerNewStudentCourse(@RequestBody StudentCourseRequest studentCourse) {
+
         studentCourseService.addNewStudentCourse(studentCourse);
     }
 

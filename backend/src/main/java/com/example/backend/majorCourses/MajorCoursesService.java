@@ -33,6 +33,10 @@ public class MajorCoursesService {
         ));
     }
 
+    public List<MajorCourses> getMajorCourses(Long majorId) {
+        return majorCoursesRepository.findMajorCourses(majorId);
+    }
+
     public void addNewMajorCourse(@RequestBody MajorCoursesRequest majorRequest) {
         Course course= courseRepository.findById(majorRequest.getCourse_id()).orElseThrow(() -> null);
         Major major = majorRepository.findById(majorRequest.getMajor_id()).orElseThrow(() -> null);
@@ -43,12 +47,12 @@ public class MajorCoursesService {
         majorCoursesRepository.save(newMajorCourse);
     }
 
-    public void deleteMajorCourse(Long MajorId) {
-        boolean exists = majorRepository.existsById(MajorId);
+    public void deleteMajorCourse(Long majorCourseId) {
+        boolean exists = majorCoursesRepository.existsById(majorCourseId);
         if (!exists) {
-            throw new IllegalStateException("Major with id " + MajorId + " does not exist");
+            throw new IllegalStateException("Major with id " + majorCourseId + " does not exist");
         }
-        majorRepository.deleteById(MajorId);
+        majorCoursesRepository.deleteById(majorCourseId);
     }
 
     @Transactional

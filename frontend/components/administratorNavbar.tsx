@@ -29,11 +29,6 @@ const studnetComponents: {
     description: "Search for student and edit student information.",
   },
   {
-    title: "Student Courses",
-    href: "/administrator/studentCourses",
-    description: "View student courses and accept sleceted courses.",
-  },
-  {
     title: "Student grades",
     href: "/administrator/studentGrades",
     description: "View student grades and gpa for all semester.",

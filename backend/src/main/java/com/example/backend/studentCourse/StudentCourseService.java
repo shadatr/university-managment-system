@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentCourseService {
@@ -28,13 +29,22 @@ public class StudentCourseService {
         ));
     }
 
+    public List<StudentCourse> activeStudentCourses(Long StudentId) {
+        List<StudentCourse> studentCourses = studentCourseRepository.findCoursesByStudent(StudentId);
+        List<StudentCourse> activeStudentCourses = studentCourses.stream().filter(studentCourse -> studentCourse.getActive()==true).toList();
+        return activeStudentCourses;
+    }
+
     public List<StudentCourse> getSectionStudents(Long sectionId) {
         return studentCourseRepository.findSectionStudents(sectionId);}
 
     public void addNewStudentCourse(StudentCourseRequest studentCourse) {
         Student student = studentRepository.findById(studentCourse.getStudent_id()).orElseThrow(() -> null);
         CourseSection courseSection = courseSectionRepository.findById(studentCourse.getSection_id()).orElseThrow(() -> null);
-
+        Optional<StudentCourse> studentCourseOptional = studentCourseRepository.findStudentCourse(studentCourse.getStudent_id(), studentCourse.getSection_id());
+        if (studentCourseOptional.isPresent()) {
+            throw new IllegalStateException("Course already added to student");
+        }
         StudentCourse newStudentCourse = new StudentCourse();
         newStudentCourse.setStudent(student);
         newStudentCourse.setSection(courseSection);

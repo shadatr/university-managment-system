@@ -43,7 +43,6 @@ const columns = [
 
 export default function App({ params }: { params: { id: string } }) {
   const [filterValue, setFilterValue] = React.useState("");
-
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );

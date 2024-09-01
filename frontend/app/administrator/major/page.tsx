@@ -152,7 +152,7 @@ export default function App() {
                   <div className="flex items-center gap-3">
                     <Tooltip content="Courses">
                       <Link
-                        href={`/administrator/courses/${major.id}`}
+                        href={`/administrator/majorCourses/${major.id}`}
                         className="text-lg text-default-400 cursor-pointer active:opacity-50"
                       >
                         <BookIcon />

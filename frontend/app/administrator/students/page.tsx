@@ -23,6 +23,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { EyeIcon } from "@/components/ui/EyeIcon";
 import Link from "next/link";
+import { BookIcon } from "@/components/ui/BookIcon";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "name",
@@ -150,6 +151,11 @@ export default function App() {
         case "actions":
           return (
             <div className="relative flex items-center gap-2 pl-5">
+              <Tooltip content="Courses">
+                <Link href={`/administrator/studentCourses/${user.id}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                  <BookIcon />
+                </Link>
+              </Tooltip>
               <Tooltip content="View profile">
                 <Link href={`/administrator/studentInformation/${user.id}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
                   <EyeIcon />
