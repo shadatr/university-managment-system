@@ -10,26 +10,18 @@ import {
   TableCell,
   Input,
   Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
   Chip,
   User,
   Pagination,
   Selection,
-  ChipProps,
   SortDescriptor,
   Tooltip,
 } from "@nextui-org/react";
-import { VerticalDotsIcon } from "@/components/ui/verticalDotsIcon";
 import { SearchIcon } from "@/components/ui/searchIcon";
 import { StudentType } from "@/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { DeleteIcon } from "@/components/ui/DeleteIcon";
 import { EyeIcon } from "@/components/ui/EyeIcon";
-import { toast } from "sonner";
 import Link from "next/link";
 
 const INITIAL_VISIBLE_COLUMNS = [

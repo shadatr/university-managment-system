@@ -71,6 +71,7 @@ export type MajorCoursesType ={
 export type CourseSectionType ={
     id: number;
     name: string;
+    semester: string;
     course: CourseType;
     teacher: TeacherType;
     students: StudentCourseType[];

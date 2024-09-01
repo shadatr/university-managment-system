@@ -44,9 +44,6 @@ const columns = [
 
 export default function App() {
   const [filterValue, setFilterValue] = React.useState("");
-  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set([])
-  );
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
@@ -83,7 +80,6 @@ export default function App() {
     );
   }, [visibleColumns]);
 
-  console.log(selectedKeys);
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...administrators];
 
@@ -177,22 +173,6 @@ export default function App() {
     },
     []
   );
-  const handleDelete = (id?: number) => () => {
-    console.log("deleting", id);
-    const deleteRes =  axios.delete(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/administrator/${id}`
-    );
-    // if (deleteRes.status === 200) {
-    //   toast.success("administrator deleted successfully");
-    // } else {
-    //   toast.error("Error deleting administrator");
-    // }
-    // const response =  axios.get(
-    //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/administrator`
-    // );
-    // const administrators: administratorType[] = response.data;
-    // setadministrators(administrators);
-  };
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -275,11 +255,7 @@ export default function App() {
   const bottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-        <span className="w-[30%] text-small text-default-400">
-          {selectedKeys === "all"
-            ? "All items selected"
-            : `${selectedKeys.size} of ${filteredItems.length} selected`}
-        </span>
+     
         <Pagination
           isCompact
           showControls
@@ -309,7 +285,7 @@ export default function App() {
         </div>
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
+  }, [ items.length, page, pages, hasSearchFilter]);
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
@@ -322,12 +298,9 @@ export default function App() {
           classNames={{
             wrapper: "max-h-[700px]",
           }}
-          selectedKeys={selectedKeys}
-          selectionMode="multiple"
           sortDescriptor={sortDescriptor}
           topContent={topContent}
           topContentPlacement="outside"
-          onSelectionChange={setSelectedKeys}
           onSortChange={setSortDescriptor}
         >
           <TableHeader columns={headerColumns}>
