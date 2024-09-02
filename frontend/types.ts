@@ -81,7 +81,7 @@ export type StudentCourseType ={
     id?: number;
     student?: StudentType;
     section?: CourseSectionType;
-    homeworks: number;
+    homework: number;
     midterm: number;
     final_exam: number;
     final_grade: number;

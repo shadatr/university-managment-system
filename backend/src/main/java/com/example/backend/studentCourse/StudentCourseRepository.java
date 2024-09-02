@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface StudentCourseRepository extends JpaRepository<StudentCourse, Long> {
-        @Query("SELECT s FROM StudentCourse s WHERE s.section.id = ?1")
+        @Query("SELECT s FROM StudentCourse s WHERE s.section.id = ?1 AND s.accepted = true")
         List<StudentCourse> findSectionStudents(Long sectionId);
         @Query("SELECT s FROM StudentCourse s WHERE s.student.id = ?1")
         List<StudentCourse> findCoursesByStudent(Long studentId);

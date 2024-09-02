@@ -88,6 +88,43 @@ public class StudentCourseService {
 
         studentCourseRepository.save(studentCourse);
     }
+
+
+    @Transactional
+    public void updateGrades(List<StudentCourseRequest> studentCourses) {
+        for (StudentCourseRequest studentCourseRequest : studentCourses) {
+            // Fetch the student or throw an exception if not found
+            Student student = studentRepository.findById(studentCourseRequest.getStudent_id())
+                    .orElseThrow(() -> new IllegalStateException(
+                            "Student with id " + studentCourseRequest.getStudent_id() + " does not exist"));
+
+            // Fetch the course section or throw an exception if not found
+            CourseSection courseSection = courseSectionRepository.findById(studentCourseRequest.getSection_id())
+                    .orElseThrow(() -> new IllegalStateException(
+                            "CourseSection with id " + studentCourseRequest.getSection_id() + " does not exist"));
+
+            // Fetch the StudentCourse entity or throw an exception if not found
+            StudentCourse studentCourse = studentCourseRepository.findById(studentCourseRequest.getId())
+                    .orElseThrow(() -> new IllegalStateException(
+                            "StudentCourse with student id " + studentCourseRequest.getStudent_id() +
+                                    " and section id " + studentCourseRequest.getSection_id() + " does not exist"));
+
+            // Update the student course details
+            studentCourse.setStudent(student);
+            studentCourse.setSection(courseSection);
+            studentCourse.setHomework(studentCourseRequest.getHomework());
+            studentCourse.setMidterm(studentCourseRequest.getMidterm());
+            studentCourse.setFinal_exam(studentCourseRequest.getFinal_exam());
+            studentCourse.setFinal_grade(studentCourseRequest.getFinal_grade());
+            studentCourse.setPassed(studentCourseRequest.getPassed());
+            studentCourse.setActive(studentCourseRequest.getActive());
+            studentCourse.setAccepted(studentCourseRequest.getAccepted());
+
+            // Save the updated entity
+            studentCourseRepository.save(studentCourse);
+        }
+    }
+
 }
 
 

@@ -101,24 +101,9 @@ const faculitiesComponents: {
   {
     title: "Course",
     href: "/administrator/course",
-    description: "Add a new Course and view courses.",
+    description: "Add a new Course and view courses and thier sections and grades.",
   },
-  {
-    title: "Course Information",
-    href: "/administrator/courseInformation",
-    description: "Search for course and edit course information.",
-  },
-  {
-    title: "Register Cousre Section",
-    href: "/administrator/registerCourseSection",
-    description: "Add a new Course Section to the university.",
-  },
-  {
-    title: "Course Section Information",
-    href: "/administrator/courseSectionInformation",
-    description:
-      "Search for courses sections and edit thier information (students, teacher and grades).",
-  },
+
 ];
 
 const AdministratorNavbar = () => {

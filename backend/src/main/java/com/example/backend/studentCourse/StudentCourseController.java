@@ -29,7 +29,7 @@ public class StudentCourseController {
         return studentCourseService.activeStudentCourses(studentId);
     }
 
-    @GetMapping(path = "{sectionId}")
+    @GetMapping(path = "sectionStudents/{sectionId}")
     public List<StudentCourse> getSectionStudents(@PathVariable("sectionId") Long sectionId) {
         return studentCourseService.getSectionStudents(sectionId);
     }
@@ -51,4 +51,12 @@ public class StudentCourseController {
             @RequestBody StudentCourseRequest studentCourse) {
         studentCourseService.updateStudentCourse(studentCourseId, studentCourse);
     }
+
+    @PutMapping(path = "updateGrades")
+    public void updateGrades(
+            @RequestBody List<StudentCourseRequest> studentCourses) {
+        studentCourseService.updateGrades(studentCourses);
+    }
+
+
 }
