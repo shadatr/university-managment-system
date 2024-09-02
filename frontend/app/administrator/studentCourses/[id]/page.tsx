@@ -155,7 +155,7 @@ export default function App({ params }: { params: { id: string } }) {
           placement={"top"}
           className="flex justify-center items-center"
         >
-          <Tab key="Student courses" title="Studentcourses">
+          <Tab key="Studentcourses" title="Student courses">
             <div className="w-[800px]">
               <div className="flex items-center gap-2 py-10">
                 <Select onValueChange={(e) => setSection(parseInt(e))}>

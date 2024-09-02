@@ -108,16 +108,19 @@ public class StudentCourseService {
                     .orElseThrow(() -> new IllegalStateException(
                             "StudentCourse with student id " + studentCourseRequest.getStudent_id() +
                                     " and section id " + studentCourseRequest.getSection_id() + " does not exist"));
+            if(studentCourseRequest.getHomework()!=null&&studentCourseRequest.getMidterm()!=null&&studentCourseRequest.getFinal_exam()!=null){
+                Double finalGrade = (studentCourseRequest.getHomework() + studentCourseRequest.getMidterm() + studentCourseRequest.getFinal_exam()) / 3.0;
+                boolean passed = finalGrade >= 50;
+                studentCourse.setFinal_grade(finalGrade.intValue());
+                studentCourse.setPassed(passed);
+                studentCourse.setActive(false);
+            }
 
-            // Update the student course details
             studentCourse.setStudent(student);
             studentCourse.setSection(courseSection);
             studentCourse.setHomework(studentCourseRequest.getHomework());
             studentCourse.setMidterm(studentCourseRequest.getMidterm());
             studentCourse.setFinal_exam(studentCourseRequest.getFinal_exam());
-            studentCourse.setFinal_grade(studentCourseRequest.getFinal_grade());
-            studentCourse.setPassed(studentCourseRequest.getPassed());
-            studentCourse.setActive(studentCourseRequest.getActive());
             studentCourse.setAccepted(studentCourseRequest.getAccepted());
 
             // Save the updated entity

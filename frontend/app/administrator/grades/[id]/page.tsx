@@ -120,7 +120,8 @@ export default function App({ params }: { params: { id: string } }) {
                 </TableCell>
                 <TableCell>{student?.final_grade}</TableCell>
                 <TableCell>
-                  <span>
+                  <span className={student.final_grade != null
+                      ? student.passed?"text-green-500":"text-red-500":""}>
                     {student.final_grade != null
                       ? student.passed
                         ? "passed"
