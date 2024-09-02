@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 import { EyeIcon } from "@/components/ui/EyeIcon";
 import Link from "next/link";
 import { BookIcon } from "@/components/ui/BookIcon";
+import { GradeIcon } from "@/components/ui/gradeIcon";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "name",
@@ -154,6 +155,11 @@ export default function App() {
               <Tooltip content="Courses">
                 <Link href={`/administrator/studentCourses/${user.id}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
                   <BookIcon />
+                </Link>
+              </Tooltip>
+              <Tooltip content="Grades">
+              <Link href={`/administrator/studentGrades/${user.id}`} className="text-lg font-black text-default-400 cursor-pointer active:opacity-50">
+                A+
                 </Link>
               </Tooltip>
               <Tooltip content="View profile">

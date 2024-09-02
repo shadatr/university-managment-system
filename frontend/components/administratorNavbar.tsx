@@ -28,11 +28,7 @@ const studnetComponents: {
     href: "/administrator/students",
     description: "Search for student and edit student information.",
   },
-  {
-    title: "Student grades",
-    href: "/administrator/studentGrades",
-    description: "View student grades and gpa for all semester.",
-  },
+
 ];
 
 const TeacherComponents: {

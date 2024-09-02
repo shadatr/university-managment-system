@@ -35,6 +35,12 @@ public class StudentCourseService {
         return activeStudentCourses;
     }
 
+    public List<StudentCourse> pastStudentCourses(Long StudentId) {
+        List<StudentCourse> studentCourses = studentCourseRepository.findCoursesByStudent(StudentId);
+        List<StudentCourse> activeStudentCourses = studentCourses.stream().filter(studentCourse -> studentCourse.getActive()==false).toList();
+        return activeStudentCourses;
+    }
+
     public List<StudentCourse> getSectionStudents(Long sectionId) {
         return studentCourseRepository.findSectionStudents(sectionId);}
 
@@ -93,17 +99,14 @@ public class StudentCourseService {
     @Transactional
     public void updateGrades(List<StudentCourseRequest> studentCourses) {
         for (StudentCourseRequest studentCourseRequest : studentCourses) {
-            // Fetch the student or throw an exception if not found
             Student student = studentRepository.findById(studentCourseRequest.getStudent_id())
                     .orElseThrow(() -> new IllegalStateException(
                             "Student with id " + studentCourseRequest.getStudent_id() + " does not exist"));
 
-            // Fetch the course section or throw an exception if not found
             CourseSection courseSection = courseSectionRepository.findById(studentCourseRequest.getSection_id())
                     .orElseThrow(() -> new IllegalStateException(
                             "CourseSection with id " + studentCourseRequest.getSection_id() + " does not exist"));
 
-            // Fetch the StudentCourse entity or throw an exception if not found
             StudentCourse studentCourse = studentCourseRepository.findById(studentCourseRequest.getId())
                     .orElseThrow(() -> new IllegalStateException(
                             "StudentCourse with student id " + studentCourseRequest.getStudent_id() +

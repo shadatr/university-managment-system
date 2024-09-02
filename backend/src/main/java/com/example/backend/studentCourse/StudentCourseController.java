@@ -28,6 +28,12 @@ public class StudentCourseController {
 
         return studentCourseService.activeStudentCourses(studentId);
     }
+    @GetMapping(path = "pastStudentCourses/{studentId}")
+    public List<StudentCourse> pastStudentCourses(@PathVariable("studentId") Long studentId) {
+
+        return studentCourseService.pastStudentCourses(studentId);
+    }
+
 
     @GetMapping(path = "sectionStudents/{sectionId}")
     public List<StudentCourse> getSectionStudents(@PathVariable("sectionId") Long sectionId) {

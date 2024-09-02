@@ -8,12 +8,9 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Tooltip,
 } from "@nextui-org/react";
 import { StudentCourseType } from "@/types";
 import axios from "axios";
-import Link from "next/link";
-import { EyeIcon } from "@/components/ui/EyeIcon";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";

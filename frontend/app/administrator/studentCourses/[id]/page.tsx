@@ -1,6 +1,6 @@
 "use client";
 
-import { CourseSectionType, CourseType, StudentCourseType } from "@/types";
+import { CourseSectionType, StudentCourseType } from "@/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
@@ -10,7 +10,6 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Input,
   Tooltip,
   Button,
   Tabs,

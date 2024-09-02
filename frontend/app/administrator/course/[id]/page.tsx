@@ -35,9 +35,10 @@ const Page = ({ params }: { params: { id: string } }) => {
   const hours = useRef<HTMLInputElement>(null);
   const credits = useRef<HTMLInputElement>(null);
   const [courseSections, setCourseSections] = useState<CourseSectionType[]>([]);
-  const semester = useRef<HTMLInputElement>(null);
   const [teachers, setTeachers] = useState<TeacherType[]>([]);
   const [teacher, setTeacher] = useState<number>();
+  const [year, setYear] = useState<string>();
+  const [term, setTerm] = useState<string>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,7 +86,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         {
           name: `${course?.name} (Section ${courseSections.length + 1})`,
           course_id: course?.id,
-          semester: semester.current?.value,
+          semester: `${year}-${term}`,
           teacher_id: teacher,
         }
       );
@@ -208,18 +209,42 @@ const Page = ({ params }: { params: { id: string } }) => {
           <Tab key="sections" title="Course Sections">
             <div className="w-[800px]">
               <div className="flex items-center gap-2 py-10">
-                <Input
-                  type="text"
-                  placeholder="Enter semester"
-                  ref={semester}
-                />
+              <Select onValueChange={(e) => setTerm(e)}>
+                  <SelectTrigger className="w-[30rem]">
+                    <SelectValue placeholder="Select a Teacher" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Term</SelectLabel>
+              
+                      <SelectItem value="Fall">Fall</SelectItem>
+                      <SelectItem value="Spring">Spring</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <Select onValueChange={(e) => setYear(e)}>
+                  <SelectTrigger className="w-[30rem]">
+                    <SelectValue placeholder="Select a Teacher" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Year</SelectLabel>
+                      <SelectItem value="2024">2024</SelectItem>
+                      <SelectItem value="2025">2025</SelectItem>
+                      <SelectItem value="2026">2026</SelectItem>
+                      <SelectItem value="2027">2027</SelectItem>
+                      <SelectItem value="2028">2028</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              
                 <Select onValueChange={(e) => setTeacher(parseInt(e))}>
                   <SelectTrigger className="w-[30rem]">
                     <SelectValue placeholder="Select a Teacher" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectLabel>Department</SelectLabel>
+                      <SelectLabel>Teachers</SelectLabel>
                       {teachers.map((t) => (
                         <SelectItem key={t.id} value={t.id?.toString() || ""}>
                           {t.name}
