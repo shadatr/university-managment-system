@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT s FROM Teacher s WHERE s.email = ?1")
     Optional<Teacher> findTeacherByEmail(String email);
+    @Query("SELECT s FROM Teacher s WHERE s.email = ?1 AND s.password = ?2")
+    Teacher findTeacherByEmailAndPassword(String email, String password);
 }

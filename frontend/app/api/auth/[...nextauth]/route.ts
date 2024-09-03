@@ -29,7 +29,7 @@ const authOptions: NextAuthOptions = {
 
         try {
           const data = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/login`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
             {
               params: {
                 role,
