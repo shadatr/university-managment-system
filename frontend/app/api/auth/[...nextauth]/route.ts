@@ -22,29 +22,34 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const { email, password, role } = credentials as any;
+        const { email, password } = credentials as any;
         const passwordHash = createHash("sha256")
           .update(password)
           .digest("hex");
 
-        try {
-          const data = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
-            {
-              params: {
-                role,
-                email,
-                password: passwordHash,
-              },
+          try {
+            const data = await axios.get(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
+              {
+                params: {
+                  role: "admin",
+                  email,
+                  password: passwordHash,
+                },
+              }
+            );
+            console.log(credentials)
+            console.log("data",data.data);
+            if (data.data.length != 0) {
+              const userObj = data.data as any;
+              userObj.userType = "admin";
+              return data.data as any;
+            } else {
+              return null;
             }
-          );
-
-          const userObj = data as any;
-          userObj.userType = "admin";
-          return data as any;
-        } catch (error) {
-          return null;
-        }
+          } catch (error) {
+            return error;
+          }
       },
     }),
     CredentialsProvider({
@@ -62,28 +67,31 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const { email, password, role } = credentials as any;
+        const { email, password } = credentials as any;
         const passwordHash = createHash("sha256")
           .update(password)
           .digest("hex");
 
         try {
           const data = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/login`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
             {
               params: {
-                role,
+                role: "teacher",
                 email,
                 password: passwordHash,
               },
             }
           );
-
-          const userObj = data as any;
-          userObj.userType = "teacher";
-          return data as any;
+          if (data.data.length != 0) {
+            const userObj = data.data as any;
+            userObj.userType = "teacher";
+            return data.data as any;
+          } else {
+            return null;
+          }
         } catch (error) {
-          return null;
+          return error;
         }
       },
     }),
@@ -102,28 +110,31 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const { email, password, role } = credentials as any;
+        const { email, password } = credentials as any;
         const passwordHash = createHash("sha256")
           .update(password)
           .digest("hex");
 
         try {
           const data = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/login`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
             {
               params: {
-                role,
+                role: "student",
                 email,
                 password: passwordHash,
               },
             }
           );
-
-          const userObj = data as any;
-          userObj.userType = "student";
-          return data as any;
+          if (data.data.length != 0) {
+            const userObj = data.data as any;
+            userObj.userType = "student";
+            return data.data as any;
+          } else {
+            return null;
+          }
         } catch (error) {
-          return null;
+          return error;
         }
       },
     }),

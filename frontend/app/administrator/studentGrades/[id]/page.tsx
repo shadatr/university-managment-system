@@ -19,9 +19,9 @@ import {
   TableCell,
 } from "@nextui-org/react";
 import axios from "axios";
-import { Link } from "lucide-react";
 
 const Page = ({ params }: { params: { id: string } }) => {
+
   const [transcriptGrades, setTranscriptGrades] = useState<StudentCourseType[]>(
     []
   );

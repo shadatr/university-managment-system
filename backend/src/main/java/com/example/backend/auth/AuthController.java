@@ -26,26 +26,37 @@ public class AuthController {
     }
 
     @GetMapping
-    public Auth getAdministrators(AuthRequest auth) {
-        String role=auth.getRole();
-        long id= new Long(0);
-        if (role=="admin"){
-            Administrator admin= administratorRepository.findAdministratorByEmailAndPassword(auth.getEmail(),auth.getPassword());
-            id=admin.getId();
-        }
-        else if (role=="teacher"){
-            Teacher teacher= teacherRepository.findTeacherByEmailAndPassword(auth.getEmail(),auth.getPassword());
-            id=teacher.getId();
-        }
-        else if (role=="student"){
-            Student student= studentRepository.findStudentByEmailAndPassword(auth.getEmail(),auth.getPassword());
-            id=student.getId();
-        }
+    public Auth getUser( @RequestParam String role,
+                         @RequestParam String email,
+                         @RequestParam String password) {
         Auth auth1= new Auth();
-        auth1.setRole(role);
-        auth1.setId(id);
-        auth1.setEmail(auth.getEmail());
-        return auth1;
+        if ("admin".equals(role)) { // Use .equals for string comparison
+            Administrator admin = administratorRepository.findAdministratorByEmailAndPassword(email, password);
+            if (admin != null) {
+                auth1.setRole(role);
+                auth1.setId(admin.getId());
+                auth1.setEmail(email);
+                return auth1;
+            }
+        } else if ("teacher".equals(role)) {
+            Teacher teacher = teacherRepository.findTeacherByEmailAndPassword(email, password);
+            if (teacher != null) {
+                auth1.setRole(role);
+                auth1.setId(teacher.getId());
+                auth1.setEmail(email);
+                return auth1;
+            }
+        } else if ("student".equals(role)) {
+            Student student = studentRepository.findStudentByEmailAndPassword(email, password);
+            if (student != null) {
+                auth1.setRole(role);
+                auth1.setId(student.getId());
+                auth1.setEmail(email);
+                return auth1;
+            }
+        }
+        return null;
+
     }
 
 }

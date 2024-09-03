@@ -23,6 +23,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { createHash } from "crypto";
 
 const Page = () => {
   const [majors, setMajors] = useState<MajorType[]>([]);
@@ -75,6 +76,9 @@ const Page = () => {
       return;
     }
     console.log(`${date?.getDay()}-${date?.getMonth()}-${date?.getFullYear()}`);
+    const passwordHash = createHash('sha256')
+    .update(password)
+    .digest('hex');
     
     const data: StudentType = {
       name,
@@ -82,7 +86,7 @@ const Page = () => {
       phone,
       email,
       address,
-      password,
+      password:passwordHash,
       major_id: selectedMajor,
       birth_date: date?.toISOString().split("T")[0],
       advisor_id: selectedTeacher,

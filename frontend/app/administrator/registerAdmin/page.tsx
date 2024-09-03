@@ -23,6 +23,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { createHash } from "crypto";
 
 const Page = () => {
   const [date, setDate] = useState<Date>();
@@ -51,6 +52,9 @@ const Page = () => {
       toast.error("Please fill all fields");
       return;
     }
+    const passwordHash = createHash('sha256')
+    .update(password)
+    .digest('hex');
 
     const data: AdministratorType = {
       name,
@@ -58,7 +62,7 @@ const Page = () => {
       phone,
       email,
       address,
-      password,
+      password: passwordHash,
       birth_date: date?.toISOString().split("T")[0],
     };
 

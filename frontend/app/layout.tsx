@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import {NextUIProvider} from "@nextui-org/react";
+import { NextUIProvider } from "@nextui-org/react";
 import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,15 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body   className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-        )}>
-          <NextUIProvider>
+      <body className={cn("min-h-screen bg-background font-sans antialiased")}>
+        <NextUIProvider>
           {children}
           <Toaster position="bottom-right" richColors />
-
-          </NextUIProvider>
-          </body>
+        </NextUIProvider>
+      </body>
     </html>
   );
 }
