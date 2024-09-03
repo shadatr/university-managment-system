@@ -27,29 +27,24 @@ const authOptions: NextAuthOptions = {
           .update(password)
           .digest("hex");
 
-          try {
-            const data = await axios.get(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
-              {
-                params: {
-                  role: "admin",
-                  email,
-                  password: passwordHash,
-                },
-              }
-            );
-            console.log(credentials)
-            console.log("data",data.data);
-            if (data.data.length != 0) {
-              const userObj = data.data as any;
-              userObj.userType = "admin";
-              return data.data as any;
-            } else {
-              return null;
-            }
-          } catch (error) {
-            return error;
+        const data = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
+          {
+            params: {
+              role: "admin",
+              email,
+              password: passwordHash,
+            },
           }
+        );
+        console.log(credentials);
+        console.log("data", data.data);
+        if (!data.data) {
+          throw new Error("User not found.");
+        }
+        const userObj = data.data as any;
+        userObj.userType = "admin";
+        return data.data as any;
       },
     }),
     CredentialsProvider({
@@ -72,27 +67,22 @@ const authOptions: NextAuthOptions = {
           .update(password)
           .digest("hex");
 
-        try {
-          const data = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
-            {
-              params: {
-                role: "teacher",
-                email,
-                password: passwordHash,
-              },
-            }
-          );
-          if (data.data.length != 0) {
-            const userObj = data.data as any;
-            userObj.userType = "teacher";
-            return data.data as any;
-          } else {
-            return null;
+        const data = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
+          {
+            params: {
+              role: "teacher",
+              email,
+              password: passwordHash,
+            },
           }
-        } catch (error) {
-          return error;
+        );
+        if (!data.data) {
+          throw new Error("User not found.");
         }
+        const userObj = data.data as any;
+        userObj.userType = "teacher";
+        return data.data as any;
       },
     }),
     CredentialsProvider({
@@ -115,27 +105,23 @@ const authOptions: NextAuthOptions = {
           .update(password)
           .digest("hex");
 
-        try {
-          const data = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
-            {
-              params: {
-                role: "student",
-                email,
-                password: passwordHash,
-              },
-            }
-          );
-          if (data.data.length != 0) {
-            const userObj = data.data as any;
-            userObj.userType = "student";
-            return data.data as any;
-          } else {
-            return null;
+        const data = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth`,
+          {
+            params: {
+              role: "student",
+              email,
+              password: passwordHash,
+            },
           }
-        } catch (error) {
-          return error;
+        );
+        if (!data.data) {
+          throw new Error("User not found.");
         }
+
+        const userObj = data.data as any;
+        userObj.userType = "student";
+        return data.data as any;
       },
     }),
   ],

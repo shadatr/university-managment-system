@@ -1,5 +1,5 @@
 "use client";
-import { MajorType, AdministratorType } from "@/types/types";
+import { MajorType, StudentType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -13,17 +13,17 @@ import {
 import { useSession } from "next-auth/react";
 
 const Page = () => {
-  const [administrator, setAdministrator] = useState<AdministratorType>();
+  const [student, setStudent] = useState<StudentType>();
   const session = useSession();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/administrator/${session.data?.user.id}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/student/${session.data?.user.id}`
         );
-        const data: AdministratorType = response.data;
-        setAdministrator(data);
+        const data: StudentType = response.data;
+        setStudent(data);
       } catch (error) {
         console.log(error);
       }
@@ -38,33 +38,33 @@ const Page = () => {
     
         <Table isStriped aria-label="Example static collection table ">
           <TableHeader>
-            <TableColumn>Administrator INFORMATION</TableColumn>
+            <TableColumn>Student INFORMATION</TableColumn>
             <TableColumn>{""}</TableColumn>
           </TableHeader>
           <TableBody>
             <TableRow key="1">
               <TableCell className="w-[100px]">Name</TableCell>
-              <TableCell>{administrator?.name}</TableCell>
+              <TableCell>{student?.name}</TableCell>
             </TableRow>
             <TableRow key="2">
               <TableCell className="w-[100px]">Surname</TableCell>
-              <TableCell>{administrator?.surname}</TableCell>
+              <TableCell>{student?.surname}</TableCell>
             </TableRow>
             <TableRow key="3">
               <TableCell className="w-[100px]">Birth Date</TableCell>
-              <TableCell>{administrator?.birth_date}</TableCell>
+              <TableCell>{student?.birth_date}</TableCell>
             </TableRow>
             <TableRow key="8">
               <TableCell className="w-[100px]">Email</TableCell>
-              <TableCell>{administrator?.email}</TableCell>
+              <TableCell>{student?.email}</TableCell>
             </TableRow>
             <TableRow key="5">
               <TableCell className="w-[100px]">Phone</TableCell>
-              <TableCell>{administrator?.phone}</TableCell>
+              <TableCell>{student?.phone}</TableCell>
             </TableRow>
             <TableRow key="6">
               <TableCell className="w-[100px]">Address</TableCell>
-              <TableCell>{administrator?.address}</TableCell>
+              <TableCell>{student?.address}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

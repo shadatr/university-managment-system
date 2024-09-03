@@ -1,16 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { signIn, useSession } from "next-auth/react";
+import React, { useState } from "react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   Tabs,
   Tab,
-  Link,
   Button,
-  Card,
-  CardBody,
-  CardHeader,
 } from "@nextui-org/react";
 import { Input } from "@/components/ui/input";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
@@ -31,7 +27,10 @@ const LoginPage = () => {
       })
       console.log(res);
       if (res?.status===200) {
-
+        localStorage.setItem("user", JSON.stringify({
+          email: email,
+          role: role,
+        }));
         if (role === "admin") {
           router.push("/administrator/profile");
         } else if (role === "student") {

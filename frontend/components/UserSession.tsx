@@ -10,8 +10,11 @@ const UserSession = ({
   role: string;
 }>) => {
   const session = useSession();
-  if (session.status != "loading") {
-    if (session.status != "authenticated"||session.data?.user && session.data.user.userType != role) {
+  const user=localStorage.getItem("user");
+  console.log(session);
+  console.log(user);
+  if (session.status != "loading"&&!user) {
+    if (!session.data?.user || session.data?.user.userType != role) {
       redirect("/auth/login");
     }
   }
