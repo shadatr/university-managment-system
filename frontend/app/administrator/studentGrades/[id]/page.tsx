@@ -9,7 +9,7 @@ import {
   Tab,
   Tabs,
 } from "@nextui-org/react";
-import { StudentCourseType } from "@/types";
+import { StudentCourseType } from "@/types/types";
 import {
   Table,
   TableHeader,

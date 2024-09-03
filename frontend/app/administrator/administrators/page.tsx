@@ -23,7 +23,7 @@ import {
 } from "@nextui-org/react";
 import { VerticalDotsIcon } from "@/components/ui/verticalDotsIcon";
 import { SearchIcon } from "@/components/ui/searchIcon";
-import { AdministratorType } from "@/types";
+import { AdministratorType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 

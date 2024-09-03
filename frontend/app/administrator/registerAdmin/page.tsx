@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import axios from "axios";
-import { MajorType, AdministratorType } from "@/types";
+import { MajorType, AdministratorType } from "@/types/types";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { toast } from "sonner";

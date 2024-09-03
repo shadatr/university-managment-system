@@ -1,5 +1,5 @@
 "use client"
-import { StudentType } from "@/types";
+import { StudentType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 

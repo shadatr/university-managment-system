@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import axios from "axios";
-import { DepartmentType, MajorType } from "@/types";
+import { DepartmentType, MajorType } from "@/types/types";
 import { DeleteIcon } from "@/components/ui/DeleteIcon";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";

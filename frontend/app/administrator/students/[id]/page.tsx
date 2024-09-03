@@ -24,7 +24,7 @@ import {
 } from "@nextui-org/react";
 import { VerticalDotsIcon } from "@/components/ui/verticalDotsIcon";
 import { SearchIcon } from "@/components/ui/searchIcon";
-import { StudentType } from "@/types";
+import { StudentType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

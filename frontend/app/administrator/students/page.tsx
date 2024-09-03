@@ -18,7 +18,7 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { SearchIcon } from "@/components/ui/searchIcon";
-import { StudentType } from "@/types";
+import { StudentType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { EyeIcon } from "@/components/ui/EyeIcon";

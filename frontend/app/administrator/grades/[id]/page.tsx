@@ -9,7 +9,7 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/react";
-import { StudentCourseType } from "@/types";
+import { StudentCourseType } from "@/types/types";
 import axios from "axios";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";

@@ -1,6 +1,6 @@
 "use client";
 
-import { CourseSectionType, StudentCourseType } from "@/types";
+import { CourseSectionType, StudentCourseType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
