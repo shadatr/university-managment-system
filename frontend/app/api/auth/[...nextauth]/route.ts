@@ -125,6 +125,12 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,  // Make sure this is correctly set
+  },
 
   callbacks: {
     async jwt({ token, user }) {
