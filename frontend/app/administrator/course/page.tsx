@@ -123,7 +123,7 @@ export default function App() {
             <TableColumn>CREDITS</TableColumn>
             <TableColumn>HOURS</TableColumn>
           </TableHeader>
-          <TableBody>
+          <TableBody emptyContent="No courses found">
             {courses.map((course) => (
               <TableRow>
                 <TableCell>{course?.name}</TableCell>

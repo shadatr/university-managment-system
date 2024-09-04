@@ -1,7 +1,6 @@
 package com.example.backend.CourseSection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -23,6 +22,12 @@ public class CourseSectionController {
     public CourseSection getCourseSection(@PathVariable("courseSectionId") Long courseSectionId) {
         return courseSectionService.getCourseSection(courseSectionId);
     }
+
+    @GetMapping(path = "teacherCourses/{teacherId}")
+    public List<CourseSection> getTeacherCourses(@PathVariable("teacherId") Long teacherId) {
+        return courseSectionService.getTeacherCourses(teacherId);
+    }
+
 
     @PostMapping
     public void registerNewCourseSection(@RequestBody CourseSectionRequest courseSection) {

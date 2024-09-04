@@ -22,20 +22,20 @@ import {
   SortDescriptor,
   Tooltip,
 } from "@nextui-org/react";
+import { VerticalDotsIcon } from "@/components/ui/verticalDotsIcon";
 import { SearchIcon } from "@/components/ui/searchIcon";
-import { TeacherType } from "@/types/types";
+import { StudentType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { UsersIcon } from "@/components/ui/Users";
 import Link from "next/link";
 import { EyeIcon } from "@/components/ui/EyeIcon";
 import { BookIcon } from "@/components/ui/BookIcon";
-import { User2Icon } from "lucide-react";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "name",
   "surname",
   "major",
+  "advisor",
   "actions",
 ];
 const columns = [
@@ -44,10 +44,11 @@ const columns = [
   { name: "SURNAME", uid: "surname", sortable: true },
   { name: "EMAIL", uid: "email" },
   { name: "MAJOR", uid: "major", sortable: true },
+  { name: "ADVISOR", uid: "advisor" },
   { name: "ACTIONS", uid: "actions" },
 ];
 
-export default function App() {
+export default function App({ params }: { params: { id: string } }) {
   const [filterValue, setFilterValue] = React.useState("");
 
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
@@ -61,16 +62,16 @@ export default function App() {
   });
 
   const router = useRouter();
-  const [teachers, setTeachers] = useState<TeacherType[]>([]);
+  const [students, setStudents] = useState<StudentType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/teacher`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/student/advisorStudents/${params.id}`
       );
-      const teachers: TeacherType[] = response.data;
-      setTeachers(teachers);
-      console.log(teachers);
+      const students: StudentType[] = response.data;
+      setStudents(students);
+      console.log(students);
     };
     fetchData();
   }, []);
@@ -86,8 +87,9 @@ export default function App() {
     );
   }, [visibleColumns]);
 
+
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...teachers];
+    let filteredUsers = [...students];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -95,7 +97,7 @@ export default function App() {
       );
     }
     return filteredUsers;
-  }, [teachers, filterValue, statusFilter]);
+  }, [students, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -106,9 +108,9 @@ export default function App() {
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: TeacherType, b: TeacherType) => {
-      const first = a[sortDescriptor.column as keyof TeacherType] as number;
-      const second = b[sortDescriptor.column as keyof TeacherType] as number;
+    return [...items].sort((a: StudentType, b: StudentType) => {
+      const first = a[sortDescriptor.column as keyof StudentType] as number;
+      const second = b[sortDescriptor.column as keyof StudentType] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
@@ -116,8 +118,8 @@ export default function App() {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback(
-    (user: TeacherType, columnKey: React.Key) => {
-      const cellValue = user[columnKey as keyof TeacherType];
+    (user: StudentType, columnKey: React.Key) => {
+      const cellValue = user[columnKey as keyof StudentType];
 
       switch (columnKey) {
         case "name":
@@ -140,26 +142,30 @@ export default function App() {
         case "major":
           return (
             <Chip className="capitalize" size="sm" variant="flat">
-              {typeof cellValue === "string" ? cellValue : ""}
+              {cellValue && typeof cellValue === "object" && "name" in cellValue
+                ? (cellValue as { name: string }).name
+                : ""}
+            </Chip>
+          );
+        case "advisor":
+          return (
+            <Chip className="capitalize" size="sm" variant="flat">
+              {cellValue && typeof cellValue === "object" && "name" in cellValue
+                ? (cellValue as { name: string }).name
+                : ""}
             </Chip>
           );
 
-
         case "actions":
           return (
-            <div className="relative flex items-center gap-2 ">
+            <div className="relative flex items-center gap-2 pl-5">
               <Tooltip content="Courses">
-                <Link href={`/administrator/teacherCourses/${user.id}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <Link href={`/administrator/studentCourses/${user.id}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
                   <BookIcon />
                 </Link>
               </Tooltip>
-              <Tooltip content="Advisor Students">
-              <Link href={`/administrator/advisorStudents/${user.id}`} className="text-lg font-black text-default-400 cursor-pointer active:opacity-50">
-              <User2Icon/>
-                </Link>
-              </Tooltip>
               <Tooltip content="View profile">
-                <Link href={`/administrator/teacherInformation/${user.id}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <Link href={`/administrator/studentInformation/${user.id}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
                   <EyeIcon />
                 </Link>
               </Tooltip>
@@ -229,7 +235,7 @@ export default function App() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {teachers.length} users
+            Total {students.length} students
           </span>
           <div className="flex justify-center items-center gap-2">
         
@@ -253,14 +259,13 @@ export default function App() {
     statusFilter,
     onSearchChange,
     onRowsPerPageChange,
-    teachers.length,
+    students.length,
     hasSearchFilter,
   ]);
 
   const bottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-     
         <Pagination
           isCompact
           showControls
@@ -294,7 +299,7 @@ export default function App() {
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
-      <div className="lg:w-[70vw] sm:w-[90vw]">
+      <div className="lg:w-[70vw] sm:w-[90vw] ">
         <Table
           aria-label="Example table with custom cells, pagination and sorting"
           isHeaderSticky
@@ -303,7 +308,6 @@ export default function App() {
           classNames={{
             wrapper: "max-h-[700px]",
           }}
-
           sortDescriptor={sortDescriptor}
           topContent={topContent}
           topContentPlacement="outside"
@@ -320,11 +324,11 @@ export default function App() {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody emptyContent={"No users found"} items={sortedItems}>
+          <TableBody emptyContent={"No students found"} items={sortedItems}>
             {(item) => (
-              <TableRow >
+              <TableRow>
                 {(columnKey) => (
-                  <TableCell key={columnKey} className={columnKey === "actions" ? "items-center " : " items-start"}>
+                  <TableCell key={columnKey}>
                     {renderCell(item, columnKey)}
                   </TableCell>
                 )}

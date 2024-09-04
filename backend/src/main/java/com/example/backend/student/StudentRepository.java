@@ -16,4 +16,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findMajorStudents(Long majorId);
     @Query("SELECT s FROM Student s WHERE s.email = ?1 AND s.password = ?2")
     Student findStudentByEmailAndPassword(String email, String password);
+    @Query("SELECT s FROM Student s WHERE s.advisor.id = ?1")
+    List<Student> findAdvisorStudents(Long advisorId);
 }

@@ -34,6 +34,10 @@ public class CourseSectionService {
         ));
     }
 
+    public List<CourseSection> getTeacherCourses(Long teacherId) {
+        return CourseSectionRepository.findCourseSectionByTeacherId(teacherId);
+    }
+
     public void addNewCourseSection(@RequestBody CourseSectionRequest CourseSectionRequest) {
         Course course = courseRepository.findById(CourseSectionRequest.getCourse_id()).orElseThrow(() -> null);
         Teacher teacher = teacherRepository.findById(CourseSectionRequest.getTeacher_id()).orElseThrow(() -> null);

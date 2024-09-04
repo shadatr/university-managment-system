@@ -47,19 +47,9 @@ const TeacherComponents: {
   {
     title: "Teacher Information",
     href: "/administrator/teachers",
-    description: "Search for teacher and edit teacher information.",
+    description: "Search for teacher, edit teacher information and view courses and students.",
   },
-  {
-    title: "Teacher Courses",
-    href: "/administrator/teacherCourses",
-    description: "View teacher currect courses.",
-  },
-  {
-    title: "Teacher advisor students",
-    href: "/administrator/teacherAdvisorStudents",
-    description:
-      "View teacher advisor students, add, delete or upadte advisor students.",
-  },
+ 
 ];
 
 const AdministratorComponents: {
@@ -186,11 +176,11 @@ const AdministratorNavbar = () => {
         </NavigationMenuList>
       </NavigationMenu>
       
-      <div  className="lg:m-5 sm:m-2 top-0 right-0 absolute hover:cursor-pointer lg:mx-10 flex items-center gap-2">
+      <div  className="lg:m-5 sm:m-2 top-0 right-0 absolute hover:cursor-pointer lg:mx-10 flex items-center gap-3">
         <Link href={"/administrator/profile"}>
-        <Avatar className="sm:w-6 sm:h-6 lg:w-10 lg:h-10"/>
+        <Avatar className="sm:w-6 sm:h-6 lg:w-8 lg:h-8"/>
         </Link>
-        <LogOut className="sm:w-6 sm:h-6 lg:w-8 lg:h-8" onClick={() => {signOut({ redirect: true }); localStorage.removeItem("user")}}/></div>
+        <LogOut className="w-6 h-6" onClick={() => {signOut({ redirect: true }); localStorage.removeItem("user")}}/></div>
     </div>
   );
 };
