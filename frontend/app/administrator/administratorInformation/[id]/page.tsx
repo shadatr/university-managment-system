@@ -53,7 +53,8 @@ const Page = ({ params }: { params: { id: string } }) => {
     const data = {
       name: name.current?.value,
       surname: surname.current?.value,
-      birth_date: date?.toISOString().split("T")[0] || administrator?.birth_date,
+      birth_date:
+        date?.toISOString().split("T")[0] || administrator?.birth_date,
       email: email.current?.value,
       phone: parseInt(phone.current?.value || ""),
       address: address.current?.value,
@@ -75,7 +76,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="w-[1000wv] justify-center items-center flex">
-      <div className="w-[800px] pt-20">
+      <div className="lg:w-[50vw] sm:w-[90vw] pt-20">
         {edit ? (
           <Button
             className="my-2"
@@ -102,10 +103,11 @@ const Page = ({ params }: { params: { id: string } }) => {
           </TableHeader>
           <TableBody>
             <TableRow key="1">
-              <TableCell className="w-[100px]">Name</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Name</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={administrator?.name || ""}
                     type="text"
@@ -117,10 +119,11 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="2">
-              <TableCell className="w-[100px]">Surname</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Surname</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={administrator?.surname}
                     type="text"
@@ -132,7 +135,9 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="3">
-              <TableCell className="w-[100px]">Birth Date</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">
+                Birth Date
+              </TableCell>
               {edit ? (
                 <TableCell>
                   <Popover>
@@ -140,7 +145,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                       <Button
                         variant={"outline"}
                         className={cn(
-                          "w-[30rem] justify-start text-left font-normal",
+                          "lg:w-[30rem] sm:w-[10rem] justify-start text-left font-normal",
                           !date && "text-muted-foreground"
                         )}
                       >
@@ -163,10 +168,11 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="8">
-              <TableCell className="w-[100px]">Email</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Email</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={administrator?.email}
                     type="text"
@@ -177,12 +183,13 @@ const Page = ({ params }: { params: { id: string } }) => {
                 <TableCell>{administrator?.email}</TableCell>
               )}
             </TableRow>
-     
+
             <TableRow key="5">
-              <TableCell className="w-[100px]">Phone</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Phone</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={administrator?.phone.toString()}
                     type="number"
@@ -194,10 +201,11 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="6">
-              <TableCell className="w-[100px]">Address</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Address</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={administrator?.address}
                     type="text"

@@ -124,14 +124,14 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="w-[100wv] justify-center items-center flex">
-      <div className="flex flex-col w-[800px] pt-10 ">
+      <div className="flex flex-col lg:w-[60vw] sm:w-[90vw] pt-10 ">
         <Tabs
           aria-label="Options"
           placement={"top"}
           className="flex justify-center items-center"
         >
           <Tab key="courseInformation" title="Course Information">
-            <div className="w-[800px] ">
+            <div >
               {edit ? (
                 <Button
                   className="my-2"
@@ -207,11 +207,11 @@ const Page = ({ params }: { params: { id: string } }) => {
             </div>
           </Tab>
           <Tab key="sections" title="Course Sections">
-            <div className="w-[800px]">
+            <div >
               <div className="flex items-center gap-2 py-10">
               <Select onValueChange={(e) => setTerm(e)}>
-                  <SelectTrigger className="w-[30rem]">
-                    <SelectValue placeholder="Select a Teacher" />
+                  <SelectTrigger >
+                    <SelectValue placeholder="Select a Term" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
@@ -223,8 +223,8 @@ const Page = ({ params }: { params: { id: string } }) => {
                   </SelectContent>
                 </Select>
                 <Select onValueChange={(e) => setYear(e)}>
-                  <SelectTrigger className="w-[30rem]">
-                    <SelectValue placeholder="Select a Teacher" />
+                  <SelectTrigger >
+                    <SelectValue placeholder="Select a Year" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
@@ -239,7 +239,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 </Select>
               
                 <Select onValueChange={(e) => setTeacher(parseInt(e))}>
-                  <SelectTrigger className="w-[30rem]">
+                  <SelectTrigger>
                     <SelectValue placeholder="Select a Teacher" />
                   </SelectTrigger>
                   <SelectContent>
@@ -254,7 +254,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                   </SelectContent>
                 </Select>
                 <Button
-                  className=" bg-baby-blue hover:bg-blue-400"
+                  className=" bg-baby-blue hover:bg-blue-400 lg:w-[30rem] sm:w-[10rem]"
                   onClick={handleAddSection}
                 >
                   Add New Section

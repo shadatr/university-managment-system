@@ -63,14 +63,15 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
-      <div className="flex flex-col w-[800px] justify-end items-center ">
+      <div className="flex flex-col lg:w-[70vw] sm:w-[90vw] justify-end items-center ">
+
         <Tabs
           aria-label="Options"
           placement={"top"}
           className="flex justify-center items-center"
         >
           <Tab key="Studentcourses" title="Student Grades">
-            <Table isStriped aria-label="Example static collection table">
+            <Table isStriped aria-label="Example static collection table" className="lg:w-[70vw] sm:w-[90vw]">
               <TableHeader>
                 <TableColumn>NAME</TableColumn>
                 <TableColumn>HOMEWORK</TableColumn>
@@ -115,7 +116,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           </Tab>
           <Tab key="transcript" title="Transcript">
             {Object.keys(groupedTranscriptGrades).map((semester) => (
-              <Card key={semester} className="w-[400px] p-3 mt-5">
+              <Card key={semester} className="lg:w-[400px] sm:w-[300px] lg:p-3 sm:p-1 mt-5 sm:text-xsm lg:text-lg">
                 <CardHeader className="flex gap-3 items-center justify-center">
                   <p className="text-md">{semester} Semester</p>
                 </CardHeader>

@@ -73,34 +73,34 @@ const Page = ({ params }: { params: { id: string } }) => {
   }, [edit]);
 
   const handleEdit = async () => {
-    const data={
+    const data = {
       name: name.current?.value,
       surname: surname.current?.value,
       birth_date: date?.toISOString().split("T")[0] || student?.birth_date,
       email: email.current?.value,
-      major_id: selectedMajor||student?.major?.id,
-      phone: parseInt(phone.current?.value||""),
+      major_id: selectedMajor || student?.major?.id,
+      phone: parseInt(phone.current?.value || ""),
       address: address.current?.value,
-      advisor_id: selectedTeacher||student?.advisor?.id,
-    }
+      advisor_id: selectedTeacher || student?.advisor?.id,
+    };
     try {
-      await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/student/${params.id}`,
-        data
-      ).then(() => {
-        setEdit(!edit);
-        toast.success("Student information updated successfully");
-      }
-      );
-   
+      await axios
+        .put(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/student/${params.id}`,
+          data
+        )
+        .then(() => {
+          setEdit(!edit);
+          toast.success("Student information updated successfully");
+        });
     } catch (error) {
       toast.error("An error occurred");
     }
   };
 
   return (
-    <div className="w-[1000wv] justify-center items-center flex">
-      <div className="w-[800px] pt-20">
+    <div className="w-[100wv] justify-center items-center flex">
+      <div className="lg:w-[50vw] sm:w-[90vw] pt-20">
         {edit ? (
           <Button
             className="my-2"
@@ -108,7 +108,7 @@ const Page = ({ params }: { params: { id: string } }) => {
               handleEdit();
             }}
           >
-             Save Changes
+            Save Changes
           </Button>
         ) : (
           <Button
@@ -117,7 +117,7 @@ const Page = ({ params }: { params: { id: string } }) => {
               setEdit(!edit);
             }}
           >
-           Edit Student Information
+            Edit Student Information
           </Button>
         )}
         <Table isStriped aria-label="Example static collection table ">
@@ -127,10 +127,11 @@ const Page = ({ params }: { params: { id: string } }) => {
           </TableHeader>
           <TableBody>
             <TableRow key="1">
-              <TableCell className="w-[100px]">Name</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Name</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={student?.name || ""}
                     type="text"
@@ -142,12 +143,13 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="2">
-              <TableCell className="w-[100px]">Surname</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Surname</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
-                     defaultValue={student?.surname}
+                    defaultValue={student?.surname}
                     type="text"
                     ref={surname}
                   />
@@ -157,7 +159,9 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="3">
-              <TableCell className="w-[100px]">Birth Date</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">
+                Birth Date
+              </TableCell>
               {edit ? (
                 <TableCell>
                   <Popover>
@@ -165,7 +169,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                       <Button
                         variant={"outline"}
                         className={cn(
-                          "w-[30rem] justify-start text-left font-normal",
+                          "lg:w-[30rem] sm:w-[10rem] justify-start text-left font-normal",
                           !date && "text-muted-foreground"
                         )}
                       >
@@ -188,12 +192,13 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="8">
-              <TableCell className="w-[100px]">Email</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Email</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
-                     defaultValue={student?.email}
+                    defaultValue={student?.email}
                     type="text"
                     ref={email}
                   />
@@ -203,14 +208,14 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="4">
-              <TableCell className="w-[100px]">Major</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Major</TableCell>
               {edit ? (
                 <TableCell>
                   <Select
-                     value={student?.major?.id.toString()}
+                    value={student?.major?.id.toString()}
                     onValueChange={(e) => setSelectedMajor(parseInt(e))}
                   >
-                    <SelectTrigger className="w-[30rem]">
+                    <SelectTrigger className="lg:w-[30rem] sm:w-[10rem]">
                       <SelectValue placeholder="Select a major" />
                     </SelectTrigger>
                     <SelectContent>
@@ -233,10 +238,11 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="5">
-              <TableCell className="w-[100px]">Phone</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Phone</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={student?.phone.toString()}
                     type="number"
@@ -248,10 +254,11 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="6">
-              <TableCell className="w-[100px]">Address</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Address</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={student?.address}
                     type="text"
@@ -263,14 +270,14 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="7">
-              <TableCell className="w-[100px]">Advisor</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Advisor</TableCell>
               {edit ? (
                 <TableCell>
                   <Select
                     value={student?.advisor?.id?.toString()}
                     onValueChange={(e) => setSelectedTeacher(parseInt(e))}
                   >
-                    <SelectTrigger className="w-[30rem]">
+                    <SelectTrigger className="lg:w-[30rem] sm:w-[10rem]">
                       <SelectValue placeholder="Select a Advisor" />
                     </SelectTrigger>
                     <SelectContent>
@@ -279,7 +286,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                         {teachers.map((teacher) => (
                           <SelectItem
                             key={teacher.id}
-                            value={teacher.id?.toString()||""}
+                            value={teacher.id?.toString() || ""}
                           >
                             {teacher.name} {teacher.surname}
                           </SelectItem>

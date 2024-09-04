@@ -108,16 +108,17 @@ const faculitiesComponents: {
 const AdministratorNavbar = () => {
   return (
     <div className=" bg-baby-blue flex justify-center items-center ">
-      <NavigationMenu className="pt-14">
+      <NavigationMenu className="lg:pt-14 sm:pt-10">
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">
+            <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
               Students
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ul className="grid gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] sm:w-[250px] ">
                 {studnetComponents.map((component) => (
                   <ListItem
+                  className=""
                     key={component.title}
                     title={component.title}
                     href={component.href}
@@ -129,11 +130,11 @@ const AdministratorNavbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">
+          <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
               Teachers
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ul className="grid gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] sm:w-[250px]">
                 {TeacherComponents.map((component) => (
                   <ListItem
                     key={component.title}
@@ -147,11 +148,11 @@ const AdministratorNavbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">
+          <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
               Administrators
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ul className="grid gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] sm:w-[250px]">
                 {AdministratorComponents.map((component) => (
                   <ListItem
                     key={component.title}
@@ -165,11 +166,11 @@ const AdministratorNavbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-baby-blue text-white text-base">
+          <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
               Faculities
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] sm:w-[250px]">
                 {faculitiesComponents.map((component) => (
                   <ListItem
                     key={component.title}
@@ -185,11 +186,11 @@ const AdministratorNavbar = () => {
         </NavigationMenuList>
       </NavigationMenu>
       
-      <div  className="m-5 top-0 right-0 absolute hover:cursor-pointer mx-10 flex items-center gap-2">
+      <div  className="lg:m-5 sm:m-2 top-0 right-0 absolute hover:cursor-pointer lg:mx-10 flex items-center gap-2">
         <Link href={"/administrator/profile"}>
-        <Avatar size={"sm"}/>
+        <Avatar className="sm:w-6 sm:h-6 lg:w-10 lg:h-10"/>
         </Link>
-        <LogOut onClick={() => signOut({ redirect: true })}/></div>
+        <LogOut className="sm:w-6 sm:h-6 lg:w-8 lg:h-8" onClick={() => {signOut({ redirect: true }); localStorage.removeItem("user")}}/></div>
     </div>
   );
 };
@@ -204,13 +205,13 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none space-y-1 rounded-md lg:p-3 sm:p-1 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <div className="lg:text-sm sm:text-xsm  font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 lg:text-sm sm:text-xsm leading-snug text-muted-foreground">
             {children}
           </p>
         </a>

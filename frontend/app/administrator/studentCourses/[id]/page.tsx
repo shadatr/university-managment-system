@@ -112,7 +112,6 @@ export default function App({ params }: { params: { id: string } }) {
   };
 
   const handleAcceptCourses = async () => {
-    console.log(selectedKeys);
     try {
       for (const key of selectedKeys) {
         const course = waitingStudentCourses.find((course) => course.id == key);
@@ -148,17 +147,17 @@ export default function App({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
-      <div className="flex flex-col w-[800px] ">
+      <div className="flex flex-col lg:w-[40vw] sm:w-[90vw]">
         <Tabs
           aria-label="Options"
           placement={"top"}
           className="flex justify-center items-center"
         >
           <Tab key="Studentcourses" title="Student courses">
-            <div className="w-[800px]">
+            <div>
               <div className="flex items-center gap-2 py-10">
                 <Select onValueChange={(e) => setSection(parseInt(e))}>
-                  <SelectTrigger className="w-[30rem]">
+                  <SelectTrigger className="lg:w-[30rem] sm:w-[25rem]">
                     <SelectValue placeholder="Select a Course" />
                   </SelectTrigger>
                   <SelectContent>
@@ -173,7 +172,7 @@ export default function App({ params }: { params: { id: string } }) {
                   </SelectContent>
                 </Select>
                 <Button
-                  className=" bg-baby-blue hover:bg-blue-400"
+                  className=" bg-baby-blue hover:bg-blue-400 text-white"
                   onClick={handleAddCourseToMajor}
                 >
                   Add Course

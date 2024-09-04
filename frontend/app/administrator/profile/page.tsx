@@ -34,7 +34,7 @@ const Page = () => {
 
   return (
     <div className="w-[1000wv] justify-center items-center flex">
-      <div className="w-[800px] pt-20">
+      <div className="lg:w-[800px] sm:w-[350px] pt-20">
     
         <Table isStriped aria-label="Example static collection table ">
           <TableHeader>
@@ -43,27 +43,27 @@ const Page = () => {
           </TableHeader>
           <TableBody>
             <TableRow key="1">
-              <TableCell className="w-[100px]">Name</TableCell>
+              <TableCell className="lg:w-[100px] sm:w-[75px]">Name</TableCell>
               <TableCell>{administrator?.name}</TableCell>
             </TableRow>
             <TableRow key="2">
-              <TableCell className="w-[100px]">Surname</TableCell>
+              <TableCell className="lg:w-[100px] sm:w-[75px]">Surname</TableCell>
               <TableCell>{administrator?.surname}</TableCell>
             </TableRow>
             <TableRow key="3">
-              <TableCell className="w-[100px]">Birth Date</TableCell>
+              <TableCell className="lg:w-[100px] sm:w-[75px]">Birth Date</TableCell>
               <TableCell>{administrator?.birth_date}</TableCell>
             </TableRow>
             <TableRow key="8">
-              <TableCell className="w-[100px]">Email</TableCell>
+              <TableCell className="lg:w-[100px] sm:w-[75px]">Email</TableCell>
               <TableCell>{administrator?.email}</TableCell>
             </TableRow>
             <TableRow key="5">
-              <TableCell className="w-[100px]">Phone</TableCell>
+              <TableCell className="lg:w-[100px] sm:w-[75px]">Phone</TableCell>
               <TableCell>{administrator?.phone}</TableCell>
             </TableRow>
             <TableRow key="6">
-              <TableCell className="w-[100px]">Address</TableCell>
+              <TableCell className="lg:w-[100px] sm:w-[75px]">Address</TableCell>
               <TableCell>{administrator?.address}</TableCell>
             </TableRow>
           </TableBody>

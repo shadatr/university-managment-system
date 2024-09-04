@@ -80,7 +80,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="w-[1000wv] justify-center items-center flex">
-      <div className="w-[800px] pt-20">
+      <div className="lg:w-[50vw] sm:w-[90vw] pt-20">
         {edit ? (
           <Button
             className="my-2"
@@ -107,10 +107,11 @@ const Page = ({ params }: { params: { id: string } }) => {
           </TableHeader>
           <TableBody>
             <TableRow key="1">
-              <TableCell className="w-[100px]">Name</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Name</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={teacher?.name || ""}
                     type="text"
@@ -122,10 +123,11 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="2">
-              <TableCell className="w-[100px]">Surname</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Surname</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={teacher?.surname}
                     type="text"
@@ -137,7 +139,9 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="3">
-              <TableCell className="w-[100px]">Birth Date</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">
+                Birth Date
+              </TableCell>
               {edit ? (
                 <TableCell>
                   <Popover>
@@ -145,7 +149,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                       <Button
                         variant={"outline"}
                         className={cn(
-                          "w-[30rem] justify-start text-left font-normal",
+                          "lg:w-[30rem] sm:w-[10rem] justify-start text-left font-normal",
                           !date && "text-muted-foreground"
                         )}
                       >
@@ -168,10 +172,11 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="8">
-              <TableCell className="w-[100px]">Email</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Email</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={teacher?.email}
                     type="text"
@@ -183,10 +188,13 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="7">
-              <TableCell className="w-[100px]">Department</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">
+                Department
+              </TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={teacher?.department}
                     type="text"
@@ -198,7 +206,7 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="4">
-              <TableCell className="w-[100px]">Major</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Major</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
@@ -213,10 +221,11 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="5">
-              <TableCell className="w-[100px]">Phone</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Phone</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={teacher?.phone.toString()}
                     type="number"
@@ -228,10 +237,11 @@ const Page = ({ params }: { params: { id: string } }) => {
               )}
             </TableRow>
             <TableRow key="6">
-              <TableCell className="w-[100px]">Address</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Address</TableCell>
               {edit ? (
                 <TableCell>
                   <Input
+                    className="sm:w-[10rem]"
                     size="sm"
                     defaultValue={teacher?.address}
                     type="text"

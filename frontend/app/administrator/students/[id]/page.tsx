@@ -299,7 +299,7 @@ export default function App({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
-      <div className="w-[70vw]">
+      <div className="lg:w-[70vw] sm:w-[90vw] ">
         <Table
           aria-label="Example table with custom cells, pagination and sorting"
           isHeaderSticky

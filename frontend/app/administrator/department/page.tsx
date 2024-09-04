@@ -67,8 +67,8 @@ export default function App() {
 
   return (
     <div className="w-[100vw] flex justify-center items-center">
-      <div className="w-[700px]">
-        <div className="flex items-center gap-8 py-10">
+      <div className="lg:w-[70vw] sm:w-[90vw]">
+        <div className="flex items-center lg:gap-8 sm:gap-2 py-10">
           <Input
             type="text"
             placeholder="Enter department name"

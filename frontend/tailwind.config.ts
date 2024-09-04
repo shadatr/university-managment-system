@@ -64,6 +64,12 @@ const config = {
         },
         "baby-blue": "#8DCFFF"
       },
+      screens: {
+        sm: '200px',
+        md: '768px',
+        lg: '1300px',
+        xl: '1440px',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

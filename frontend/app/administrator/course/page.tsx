@@ -92,7 +92,7 @@ export default function App() {
 
   return (
     <div className="w-[100vw] flex justify-center items-center">
-      <div className="w-[900px]">
+      <div className="lg:w-[70vw] sm:w-[90vw]">
         <div className="flex items-center gap-2 py-10">
           <Input
             type="text"

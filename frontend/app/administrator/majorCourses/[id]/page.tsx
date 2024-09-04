@@ -96,10 +96,10 @@ export default function App({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
-      <div className="w-[800px]">
+      <div className="lg:w-[40vw] sm:w-[90vw]">
         <div className="flex items-center gap-2 py-10">
           <Select onValueChange={(e) => setCourse(parseInt(e))}>
-            <SelectTrigger className="w-[30rem]">
+            <SelectTrigger className="lg:w-[30rem] ">
               <SelectValue placeholder="Select a Course" />
             </SelectTrigger>
             <SelectContent>

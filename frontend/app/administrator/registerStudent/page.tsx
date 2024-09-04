@@ -76,17 +76,15 @@ const Page = () => {
       return;
     }
     console.log(`${date?.getDay()}-${date?.getMonth()}-${date?.getFullYear()}`);
-    const passwordHash = createHash('sha256')
-    .update(password)
-    .digest('hex');
-    
+    const passwordHash = createHash("sha256").update(password).digest("hex");
+
     const data: StudentType = {
       name,
       surname,
       phone,
       email,
       address,
-      password:passwordHash,
+      password: passwordHash,
       major_id: selectedMajor,
       birth_date: date?.toISOString().split("T")[0],
       advisor_id: selectedTeacher,
@@ -109,35 +107,35 @@ const Page = () => {
       <Input
         type="text"
         placeholder="Name"
-        className="w-[30rem]"
+        className="lg:w-[30rem] sm:w-[20rem]"
         onChange={(e) => setName(e.target.value)}
       />
       <Input
         type="text"
         placeholder="Surname"
-        className="w-[30rem]"
+        className="lg:w-[30rem] sm:w-[20rem]"
         onChange={(e) => setSurname(e.target.value)}
       />
       <Input
         type="number"
         placeholder="Phone"
-        className="w-[30rem]"
+        className="lg:w-[30rem] sm:w-[20rem]"
         onChange={(e) => setPhone(parseInt(e.target.value))}
       />
       <Input
         type="email"
         placeholder="Email"
-        className="w-[30rem]"
+        className="lg:w-[30rem] sm:w-[20rem]"
         onChange={(e) => setEmail(e.target.value)}
       />
       <Input
         type="text"
         placeholder="Address"
-        className="w-[30rem]"
+        className="lg:w-[30rem] sm:w-[20rem]"
         onChange={(e) => setAddress(e.target.value)}
       />
       <Select onValueChange={(e) => setSelectedMajor(parseInt(e))}>
-        <SelectTrigger className="w-[30rem]">
+        <SelectTrigger className="lg:w-[30rem] sm:w-[20rem]">
           <SelectValue placeholder="Select a major" />
         </SelectTrigger>
         <SelectContent>
@@ -152,14 +150,14 @@ const Page = () => {
         </SelectContent>
       </Select>
       <Select onValueChange={(e) => setSelectedTeacher(parseInt(e))}>
-        <SelectTrigger className="w-[30rem]">
+        <SelectTrigger className="lg:w-[30rem] sm:w-[20rem]">
           <SelectValue placeholder="Select a Advisor" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Advisors</SelectLabel>
             {teachers.map((teacher) => (
-              <SelectItem key={teacher.id} value={teacher.id?.toString()||""}>
+              <SelectItem key={teacher.id} value={teacher.id?.toString() || ""}>
                 {teacher.name} {teacher.surname}
               </SelectItem>
             ))}
@@ -171,7 +169,7 @@ const Page = () => {
           <Button
             variant={"outline"}
             className={cn(
-              "w-[30rem] justify-start text-left font-normal",
+              "lg:w-[30rem] sm:w-[20rem] justify-start text-left font-normal",
               !date && "text-muted-foreground"
             )}
           >
@@ -191,17 +189,17 @@ const Page = () => {
       <Input
         type="password"
         placeholder="Password"
-        className="w-[30rem]"
+        className="lg:w-[30rem] sm:w-[20rem]"
         onChange={(e) => setPassword(e.target.value)}
       />
       <Input
         onChange={(e) => setPasswordConfirmation(e.target.value)}
         type="password"
         placeholder="Password Confirmation"
-        className="w-[30rem]"
+        className="lg:w-[30rem] sm:w-[20rem]"
       />
       <Button
-        className="w-[30rem] bg-baby-blue hover:bg-blue-300"
+        className="lg:w-[30rem] sm:w-[20rem] bg-baby-blue hover:bg-blue-300"
         onClick={onSubmit}
       >
         Register

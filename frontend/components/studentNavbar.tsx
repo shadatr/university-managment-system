@@ -17,7 +17,7 @@ import { signOut } from "next-auth/react";
 const StudentNavbar = () => {
   return (
     <div className=" bg-baby-blue flex justify-center items-center ">
-      <NavigationMenu className="pt-14 pb-4">
+      <NavigationMenu className="lg:pt-14 sm:pt-10">
         <NavigationMenuList className="flex gap-10 font-medium">
           <NavigationMenuItem>
             <NavigationMenuLink
@@ -49,7 +49,7 @@ const StudentNavbar = () => {
         <Link href={"/administrator/profile"}>
           <Avatar size={"sm"} />
         </Link>
-        <LogOut onClick={() => signOut({ redirect: true })} />
+        <LogOut onClick={() => {signOut({ redirect: true }); localStorage.removeItem("user")}} />
       </div>
     </div>
   );

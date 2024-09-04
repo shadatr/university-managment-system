@@ -98,21 +98,23 @@ export default function App() {
 
   return (
     <div className="w-[100vw] flex justify-center items-center">
-      <div className="w-[900px]">
-        <div className="flex items-center gap-2 py-10">
+      <div className="lg:w-[60vw] sm:w-[90vw]">
+        <div className="flex items-center lg:gap-2 sm:gap-1 py-10">
           <Input
             type="text"
             placeholder="Enter major name"
+            className="lg:w-[30rem] sm:w-[5rem]"
             onChange={(e) => setMajorName(e.target.value)}
           />
           <Input
             type="number"
+            className="lg:w-[30rem] sm:w-[5rem]"
             placeholder="Credits"
             onChange={(e) => setMajorCredits(parseInt(e.target.value))}
           />
 
           <Select onValueChange={(e) => setSelectedDepartment(parseInt(e))}>
-            <SelectTrigger className="w-[30rem]">
+            <SelectTrigger className="lg:w-[30rem] sm:w-[5rem]">
               <SelectValue placeholder="Select a Department" />
             </SelectTrigger>
             <SelectContent>
@@ -130,7 +132,7 @@ export default function App() {
             </SelectContent>
           </Select>
           <Button
-            className=" bg-baby-blue hover:bg-blue-400"
+            className=" bg-baby-blue hover:bg-blue-400 sm:w-[8rem] lg:[20rem]"
             onClick={handleAddMajor}
           >
             Add New Major

@@ -65,7 +65,7 @@ export default function App({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
-      <div className="w-[70vw]">
+      <div className="lg:w-[70vw] sm:w-[90vw]">
         <Button className="my-4" onClick={handleSaveChanges}>Save Changes</Button>
         <Table isStriped aria-label="Example static collection table">
           <TableHeader>
