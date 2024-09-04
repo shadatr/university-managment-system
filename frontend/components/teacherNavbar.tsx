@@ -27,14 +27,14 @@ const TeacherNavbar = () => {
               Courses
             </NavigationMenuLink>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          {/* <NavigationMenuItem>
           <NavigationMenuLink
               href={"/teacher/grades"}
               className={"bg-baby-blue text-white text-base"}
             >
               Grades
             </NavigationMenuLink>
-          </NavigationMenuItem>
+          </NavigationMenuItem> */}
           <NavigationMenuLink
               href={"/teacher/advisor"}
               className={"bg-baby-blue text-white text-base"}

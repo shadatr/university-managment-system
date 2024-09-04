@@ -54,7 +54,7 @@ export default function App() {
                 <TableCell>{course?.course.credits}</TableCell>
                 <TableCell>
                   <Tooltip content="Grades">
-                    <Link href={`/grades/${course.id}`} className="font-bold text-gray-400">+A</Link>
+                    <Link href={`/teacher/grades/${course.id}`} className="font-bold text-gray-400">+A</Link>
                   </Tooltip>
                 </TableCell>
               </TableRow>
