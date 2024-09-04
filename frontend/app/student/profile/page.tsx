@@ -29,7 +29,7 @@ const Page = () => {
       }
     };
     fetchData();
-  }, [session]);
+  }, [session.data?.user.id]);
 
 
   return (
