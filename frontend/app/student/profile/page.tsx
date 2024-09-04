@@ -34,7 +34,7 @@ const Page = () => {
 
   return (
     <div className="w-[1000wv] justify-center items-center flex">
-      <div className="w-[800px] pt-20">
+      <div className="lg:w-[50vw] sm:w-[90vw] pt-20">
     
         <Table isStriped aria-label="Example static collection table ">
           <TableHeader>
@@ -43,28 +43,36 @@ const Page = () => {
           </TableHeader>
           <TableBody>
             <TableRow key="1">
-              <TableCell className="w-[100px]">Name</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Name</TableCell>
               <TableCell>{student?.name}</TableCell>
             </TableRow>
             <TableRow key="2">
-              <TableCell className="w-[100px]">Surname</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Surname</TableCell>
               <TableCell>{student?.surname}</TableCell>
             </TableRow>
             <TableRow key="3">
-              <TableCell className="w-[100px]">Birth Date</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Birth Date</TableCell>
               <TableCell>{student?.birth_date}</TableCell>
             </TableRow>
             <TableRow key="8">
-              <TableCell className="w-[100px]">Email</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Email</TableCell>
               <TableCell>{student?.email}</TableCell>
             </TableRow>
             <TableRow key="5">
-              <TableCell className="w-[100px]">Phone</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Phone</TableCell>
               <TableCell>{student?.phone}</TableCell>
             </TableRow>
             <TableRow key="6">
-              <TableCell className="w-[100px]">Address</TableCell>
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Address</TableCell>
               <TableCell>{student?.address}</TableCell>
+            </TableRow>
+            <TableRow key="7">
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Major</TableCell>
+              <TableCell>{student?.major?.name}</TableCell>
+            </TableRow>
+            <TableRow key="8">
+              <TableCell className="lg:w-[8rem] sm:w-[3rem]">Advisor</TableCell>
+              <TableCell>{student?.advisor?.name} {student?.advisor?.surname}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

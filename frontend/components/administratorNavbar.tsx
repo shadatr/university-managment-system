@@ -31,7 +31,6 @@ const studnetComponents: {
     href: "/administrator/students",
     description: "Search for student and edit student information.",
   },
-
 ];
 
 const TeacherComponents: {
@@ -47,9 +46,9 @@ const TeacherComponents: {
   {
     title: "Teacher Information",
     href: "/administrator/teachers",
-    description: "Search for teacher, edit teacher information and view courses and students.",
+    description:
+      "Search for teacher, edit teacher information and view courses and students.",
   },
- 
 ];
 
 const AdministratorComponents: {
@@ -90,9 +89,9 @@ const faculitiesComponents: {
   {
     title: "Course",
     href: "/administrator/course",
-    description: "Add a new Course and view courses and thier sections and grades.",
+    description:
+      "Add a new Course and view courses and thier sections and grades.",
   },
-
 ];
 
 const AdministratorNavbar = () => {
@@ -108,7 +107,7 @@ const AdministratorNavbar = () => {
               <ul className="grid gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] sm:w-[250px] ">
                 {studnetComponents.map((component) => (
                   <ListItem
-                  className=""
+                    className=""
                     key={component.title}
                     title={component.title}
                     href={component.href}
@@ -120,7 +119,7 @@ const AdministratorNavbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
+            <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
               Teachers
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -138,7 +137,7 @@ const AdministratorNavbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
+            <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
               Administrators
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -156,7 +155,7 @@ const AdministratorNavbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
+            <NavigationMenuTrigger className="bg-baby-blue text-white lg:text-base sm:text-xs">
               Faculities
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -175,12 +174,19 @@ const AdministratorNavbar = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      
-      <div  className="lg:m-5 sm:m-2 top-0 right-0 absolute hover:cursor-pointer lg:mx-10 flex items-center gap-3">
+
+      <div className="lg:m-5 sm:m-2 top-0 right-0 absolute hover:cursor-pointer lg:mx-10 flex items-center gap-3">
         <Link href={"/administrator/profile"}>
-        <Avatar className="sm:w-6 sm:h-6 lg:w-8 lg:h-8"/>
+          <Avatar className="sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
         </Link>
-        <LogOut className="w-6 h-6" onClick={() => {signOut({ redirect: true }); localStorage.removeItem("user")}}/></div>
+        <LogOut
+          className="w-6 h-6"
+          onClick={() => {
+            signOut({ redirect: true });
+            localStorage.removeItem("user");
+          }}
+        />
+      </div>
     </div>
   );
 };
@@ -200,7 +206,9 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="lg:text-sm sm:text-xsm  font-medium leading-none">{title}</div>
+          <div className="lg:text-sm sm:text-xsm  font-medium leading-none">
+            {title}
+          </div>
           <p className="line-clamp-2 lg:text-sm sm:text-xsm leading-snug text-muted-foreground">
             {children}
           </p>

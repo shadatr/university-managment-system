@@ -25,6 +25,10 @@ public class StudentController {
     public Student getStudent(@PathVariable("studentId") Long studentId) {
         return studentService.getStudent(studentId);
     }
+    @GetMapping(path = "byEmail/{studentId}")
+    public Student getStudent(@PathVariable("studentId") Long studentId) {
+        return studentService.getStudent(studentId);
+    }
 
     @GetMapping(path = "majorStudents/{majorId}")
     public List<Student> getMajorStudent(@PathVariable("majorId") Long majorId) {
@@ -35,6 +39,7 @@ public class StudentController {
     public List<Student> getAdvisorStudents(@PathVariable("advisorId") Long advisorId) {
         return studentService.getAdvisorStudents(advisorId);
     }
+
 
     @PostMapping
     public void registerNewStudent(@RequestBody StudentRequest student) {

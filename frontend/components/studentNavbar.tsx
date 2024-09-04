@@ -18,7 +18,7 @@ const StudentNavbar = () => {
   return (
     <div className=" bg-baby-blue flex justify-center items-center ">
       <NavigationMenu className="lg:pt-14 sm:pt-10">
-        <NavigationMenuList className="flex gap-10 font-medium">
+        <NavigationMenuList className="flex gap-10 font-medium p-2">
           <NavigationMenuItem>
             <NavigationMenuLink
               href={"/student/courses"}
@@ -44,12 +44,17 @@ const StudentNavbar = () => {
   
         </NavigationMenuList>
       </NavigationMenu>
-
-      <div className="m-5 top-0 right-0 absolute hover:cursor-pointer mx-10 flex items-center gap-2">
-        <Link href={"/administrator/profile"}>
-          <Avatar size={"sm"} />
+      <div className="lg:m-5 sm:m-2 top-0 right-0 absolute hover:cursor-pointer lg:mx-10 flex items-center gap-3">
+        <Link href={"/student/profile"}>
+          <Avatar className="sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
         </Link>
-        <LogOut onClick={() => {signOut({ redirect: true }); localStorage.removeItem("user")}} />
+        <LogOut
+          className="w-6 h-6"
+          onClick={() => {
+            signOut({ redirect: true });
+            localStorage.removeItem("user");
+          }}
+        />
       </div>
     </div>
   );
