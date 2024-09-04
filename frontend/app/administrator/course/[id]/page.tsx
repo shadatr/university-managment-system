@@ -84,7 +84,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/courseSection`,
         {
-          name: `${course?.name} (Section ${courseSections.length + 1})`,
+          name: `${course?.name} (Section ${courseSections.filter((i)=>i.course.id==course?.id).length + 1})`,
           course_id: course?.id,
           semester: `${year}-${term}`,
           teacher_id: teacher,
@@ -247,7 +247,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                       <SelectLabel>Teachers</SelectLabel>
                       {teachers.map((t) => (
                         <SelectItem key={t.id} value={t.id?.toString() || ""}>
-                          {t.name}
+                          {t.name} {t.surname}
                         </SelectItem>
                       ))}
                     </SelectGroup>

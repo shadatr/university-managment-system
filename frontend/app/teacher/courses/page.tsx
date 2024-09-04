@@ -10,17 +10,20 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Tooltip,
 } from "@nextui-org/react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
-export default function App({ params }: { params: { id: string } }) {
+export default function App() {
   const [teacherCourses, setTeacherCourses] = useState<CourseSectionType[]>([]);
-
+  const session = useSession();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response2 = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/courseSection/teacherCourses/${params.id}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/courseSection/teacherCourses/${session.data?.user.id}`
         );
         const data2: CourseSectionType[] = response2.data;
         setTeacherCourses(data2);
@@ -29,8 +32,7 @@ export default function App({ params }: { params: { id: string } }) {
       }
     };
     fetchData();
-  }, []);
-
+  }, [session.data?.user.id]);
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-20">
@@ -41,21 +43,19 @@ export default function App({ params }: { params: { id: string } }) {
             <TableColumn>SRCTION NAME</TableColumn>
             <TableColumn>HOURS</TableColumn>
             <TableColumn>CREDITS</TableColumn>
+            <TableColumn>GRADES</TableColumn>
           </TableHeader>
           <TableBody emptyContent={"No Courses found"}>
             {teacherCourses.map((course) => (
               <TableRow>
-                <TableCell >
-                  {course?.course.name}
-                </TableCell>
-                <TableCell >
-                  {course?.name}
-                </TableCell>
-                <TableCell >
-                  {course?.course.hours}
-                </TableCell>
-                <TableCell >
-                  {course?.course.credits}
+                <TableCell>{course?.course.name}</TableCell>
+                <TableCell>{course?.name}</TableCell>
+                <TableCell>{course?.course.hours}</TableCell>
+                <TableCell>{course?.course.credits}</TableCell>
+                <TableCell>
+                  <Tooltip content="Grades">
+                    <Link href={`/grades/${course.id}`} className="font-bold text-gray-400">+A</Link>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}
