@@ -49,7 +49,7 @@ const LoginPage = () => {
 
   return (
     <div className="h-screen flex items-center justify-center bg-[#000D2E] w-[100vw]">
-      <BackgroundGradient className="max-w-full w-[450px] h-[400px] p-5 rounded-3xl bg-white ">
+      <BackgroundGradient className="max-w-full lg:w-[450px] sm:w-[380px] h-[400px] p-5 rounded-3xl bg-white ">
           <Tabs
             fullWidth
             size="md"

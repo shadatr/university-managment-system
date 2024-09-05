@@ -25,10 +25,6 @@ public class StudentController {
     public Student getStudent(@PathVariable("studentId") Long studentId) {
         return studentService.getStudent(studentId);
     }
-    @GetMapping(path = "byEmail/{studentId}")
-    public Student getStudent(@PathVariable("studentId") Long studentId) {
-        return studentService.getStudent(studentId);
-    }
 
     @GetMapping(path = "majorStudents/{majorId}")
     public List<Student> getMajorStudent(@PathVariable("majorId") Long majorId) {
