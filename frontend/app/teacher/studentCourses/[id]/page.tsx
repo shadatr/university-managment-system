@@ -184,7 +184,7 @@ export default function App({ params }: { params: { id: string } }) {
                 </TableHeader>
                 <TableBody emptyContent={"No Courses found"}>
                   {studentCourses.map((course) => (
-                    <TableRow>
+                    <TableRow key={course.id}>
                       <TableCell className="flex w-full justify-between items-center">
                         <span>{course?.section?.name}</span>
                         <div className="flex items-center gap-3">
@@ -217,7 +217,7 @@ export default function App({ params }: { params: { id: string } }) {
               aria-label="Controlled table example with dynamic content"
               selectionMode="multiple"
               selectedKeys={selectedKeys}
-              onSelectionChange={setSelectedKeys}
+              // onSelectionChange={setSelectedKeys}
             >
               <TableHeader>
                 <TableColumn>Course Name</TableColumn>

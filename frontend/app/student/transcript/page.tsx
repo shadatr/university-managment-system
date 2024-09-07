@@ -55,7 +55,7 @@ const Page = ({ params }: { params: { id: string } }) => {
             <CardBody>
               {groupedTranscriptGrades[semester].map(
                 (grade: StudentCourseType, index: any) => (
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between" key={index}>
                     <p key={index}>{grade.section?.course.name}</p>
                     <p
                       key={index}
@@ -73,6 +73,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         ))}
         {Object.keys(groupedTranscriptGrades).length === 0 && (
           <Card
+          key={0}
           className="lg:w-[400px] h-[300px] sm:w-[300px] lg:p-3 sm:p-1 mt-5 sm:text-xsm lg:text-lg"
         >
   

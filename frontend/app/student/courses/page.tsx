@@ -177,7 +177,7 @@ export default function App() {
                 </TableHeader>
                 <TableBody emptyContent={"No Courses found"}>
                   {waitingStudentCourses.map((course) => (
-                    <TableRow>
+                    <TableRow key={course.id}>
                       <TableCell className="flex w-full justify-between items-center">
                         <span>{course?.section?.name}</span>
                         <div className="flex items-center gap-3">

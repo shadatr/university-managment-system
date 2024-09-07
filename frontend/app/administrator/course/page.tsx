@@ -125,7 +125,7 @@ export default function App() {
           </TableHeader>
           <TableBody emptyContent="No courses found">
             {courses.map((course) => (
-              <TableRow>
+              <TableRow key={course.id}>
                 <TableCell>{course?.name}</TableCell>
                 <TableCell>{course?.credits}</TableCell>
                 <TableCell className="flex w-full justify-between items-center">

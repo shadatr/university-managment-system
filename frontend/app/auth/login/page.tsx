@@ -54,7 +54,7 @@ const LoginPage = () => {
             fullWidth
             size="md"
             aria-label="Tabs form"
-            selectedKey={role}
+            // selectedKey={role}
             onSelectionChange={setRole}
           >
             <Tab key="student" title="Student">

@@ -50,7 +50,7 @@ export default function App({ params }: { params: { id: string } }) {
       }
     };
     fetchData();
-  }, []);
+  }, [params.id]);
 
   const handleAddCourseToMajor = () => {
     if (!course) {
@@ -126,7 +126,7 @@ export default function App({ params }: { params: { id: string } }) {
           </TableHeader>
           <TableBody emptyContent={"No Courses found"} >
             {majorCourses.map((course) => (
-              <TableRow>
+              <TableRow key={course.id}>
                 <TableCell className="flex w-full justify-between items-center">
                   <span>{course?.course.name}</span>
                   <div className="flex items-center gap-3">

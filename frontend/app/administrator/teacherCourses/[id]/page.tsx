@@ -44,7 +44,7 @@ export default function App({ params }: { params: { id: string } }) {
           </TableHeader>
           <TableBody emptyContent={"No Courses found"}>
             {teacherCourses.map((course) => (
-              <TableRow>
+              <TableRow key={course.id}>
                 <TableCell >
                   {course?.course.name}
                 </TableCell>

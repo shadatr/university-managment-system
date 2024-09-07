@@ -146,7 +146,7 @@ export default function App() {
           </TableHeader>
           <TableBody>
             {majors.map((major) => (
-              <TableRow>
+              <TableRow key={major.id}>
                 <TableCell>{major?.name}</TableCell>
                 <TableCell>{major?.credits}</TableCell>
                 <TableCell className="flex w-full justify-between items-center">

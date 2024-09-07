@@ -1,22 +1,23 @@
 "use client";
 import UserSession from "@/components/UserSession";
 import TeacherNavbar from "@/components/teacherNavbar";
+import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
 export default function StudentLayout({
   children,
-  session,
+  // session,
 }: Readonly<{
   children: React.ReactNode;
-  session: any;
+  // session: Session;
 }>) {
 
   return (
     <div>
       <TeacherNavbar/>
-      <SessionProvider session={session}>
+      {/* <SessionProvider session={session}> */}
         <UserSession role="teacher">{children}</UserSession>
-      </SessionProvider>
+      {/* </SessionProvider> */}
     </div>
   );
 }

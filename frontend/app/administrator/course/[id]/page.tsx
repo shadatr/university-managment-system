@@ -268,7 +268,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 </TableHeader>
                 <TableBody>
                   {courseSections.map((section) => (
-                    <TableRow>
+                    <TableRow key={section.id}>
                       <TableCell>{section?.name}</TableCell>
                       <TableCell>{section?.teacher.name}</TableCell>
                       <TableCell className="flex w-full justify-between items-center">

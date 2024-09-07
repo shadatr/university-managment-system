@@ -21,7 +21,6 @@ import {
 import axios from "axios";
 
 const Page = ({ params }: { params: { id: string } }) => {
-
   const [transcriptGrades, setTranscriptGrades] = useState<StudentCourseType[]>(
     []
   );
@@ -64,14 +63,17 @@ const Page = ({ params }: { params: { id: string } }) => {
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
       <div className="flex flex-col lg:w-[70vw] sm:w-[90vw] justify-end items-center ">
-
         <Tabs
           aria-label="Options"
           placement={"top"}
           className="flex justify-center items-center"
         >
           <Tab key="Studentcourses" title="Student Grades">
-            <Table isStriped aria-label="Example static collection table" className="lg:w-[70vw] sm:w-[90vw]">
+            <Table
+              isStriped
+              aria-label="Example static collection table"
+              className="lg:w-[70vw] sm:w-[90vw]"
+            >
               <TableHeader>
                 <TableColumn>NAME</TableColumn>
                 <TableColumn>HOMEWORK</TableColumn>
@@ -85,9 +87,7 @@ const Page = ({ params }: { params: { id: string } }) => {
               <TableBody emptyContent={"No currentGradess found"}>
                 {currentGrades.map((currentGrade) => (
                   <TableRow key={currentGrade.id}>
-                    <TableCell>
-                      {currentGrade?.section?.name}{" "}
-                    </TableCell>
+                    <TableCell>{currentGrade?.section?.name} </TableCell>
                     <TableCell>{currentGrade?.homework}</TableCell>
                     <TableCell>{currentGrade?.midterm}</TableCell>
                     <TableCell>{currentGrade?.final_exam}</TableCell>
@@ -116,7 +116,10 @@ const Page = ({ params }: { params: { id: string } }) => {
           </Tab>
           <Tab key="transcript" title="Transcript">
             {Object.keys(groupedTranscriptGrades).map((semester) => (
-              <Card key={semester} className="lg:w-[400px] sm:w-[300px] lg:p-3 sm:p-1 mt-5 sm:text-xsm lg:text-lg">
+              <Card
+                key={semester}
+                className="lg:w-[400px] sm:w-[300px] lg:p-3 sm:p-1 mt-5 sm:text-xsm lg:text-lg"
+              >
                 <CardHeader className="flex gap-3 items-center justify-center">
                   <p className="text-md">{semester} Semester</p>
                 </CardHeader>
@@ -124,20 +127,23 @@ const Page = ({ params }: { params: { id: string } }) => {
                 <CardBody>
                   {groupedTranscriptGrades[semester].map(
                     (grade: StudentCourseType, index: any) => (
-                      <div className="flex items-center justify-between">
-
-                      <p key={index}>
-                        {grade.section?.course.name} 
-                      </p>
-                      <p key={index} className={grade.passed?"text-green-500":"text-red-500"}>
-                        {grade.final_grade} 
-                      </p>
-
+                      <div
+                        key={index}
+                        className="flex items-center justify-between"
+                      >
+                        <p key={index}>{grade.section?.course.name}</p>
+                        <p
+                          key={index}
+                          className={
+                            grade.passed ? "text-green-500" : "text-red-500"
+                          }
+                        >
+                          {grade.final_grade}
+                        </p>
                       </div>
                     )
                   )}
                 </CardBody>
-             
               </Card>
             ))}
           </Tab>

@@ -84,7 +84,7 @@ export default function App() {
           </TableHeader>
           <TableBody>
             {departments.map((department) => (
-              <TableRow>
+              <TableRow key={department.id}>
                 <TableCell className="flex w-full justify-between items-center">
                   <span>{department?.name}</span>
                   <span
