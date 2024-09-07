@@ -1,23 +1,26 @@
 "use client";
 import UserSession from "@/components/UserSession";
 import TeacherNavbar from "@/components/teacherNavbar";
-import { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import { Metadata } from "next";
+import { Tajawal } from "next/font/google";
+
+const inter = Tajawal({style:"normal", weight:["200" , "300" , "400" , "500" ,"700", "800" ,"900"],subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "University Management System | Teacher",
+};
+
 
 export default function StudentLayout({
   children,
-  // session,
 }: Readonly<{
   children: React.ReactNode;
-  // session: Session;
 }>) {
 
   return (
-    <div>
+    <div className={inter.className}>
       <TeacherNavbar/>
-      {/* <SessionProvider session={session}> */}
         <UserSession role="teacher">{children}</UserSession>
-      {/* </SessionProvider> */}
     </div>
   );
 }

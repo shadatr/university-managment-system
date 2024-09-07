@@ -1,25 +1,24 @@
-"use client";
 import UserSession from "@/components/UserSession";
 import AdministratorNavbar from "@/components/administratorNavbar";
-import { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import { Metadata } from "next";
+import { Tajawal } from "next/font/google";
+
+const inter = Tajawal({style:"normal", weight:["200" , "300" , "400" , "500" ,"700", "800" ,"900"],subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "University Management System | Administrator",
+};
 
 export default function AdministatorLayout({
   children,
-  // session,
-}: Readonly<{
+}:
+Readonly<{
   children: React.ReactNode;
-  // session: Session;
 }>) {
   return (
-    <div>
+    <div className={inter.className}>
       <AdministratorNavbar />
-      {/* <SessionProvider session={session}> */}
-        <UserSession role="admin">
-
-        {children}
-        </UserSession> 
-        {/* </SessionProvider> */}
+      <UserSession role="admin">{children}</UserSession>
     </div>
   );
 }
