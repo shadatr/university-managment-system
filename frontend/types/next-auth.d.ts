@@ -10,7 +10,7 @@ declare module "next-auth" {
       id: number;
       email: string;
 
-      userType: "student" | "doctor" | "admin";
+      userType: "student" | "teacher" | "admin";
     };
   }
 }
