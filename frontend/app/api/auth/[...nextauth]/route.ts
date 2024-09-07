@@ -129,7 +129,7 @@ const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   jwt: {
-    secret: process.env.JWT_SECRET,  // Make sure this is correctly set
+    secret: process.env.NEXTAUTH_SECRET,  // Make sure this is correctly set
   },
 
   callbacks: {
