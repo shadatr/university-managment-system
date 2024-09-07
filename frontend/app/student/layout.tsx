@@ -1,4 +1,3 @@
-"use client";
 import UserSession from "@/components/UserSession";
 import StudentNavbar from "@/components/studentNavbar";
 import { ReactNode } from "react";

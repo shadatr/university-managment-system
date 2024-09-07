@@ -1,4 +1,3 @@
-"use client";
 import UserSession from "@/components/UserSession";
 import TeacherNavbar from "@/components/teacherNavbar";
 import { Metadata } from "next";

@@ -16,9 +16,9 @@ export default function Home() {
     } else if (session.data?.user.userType == "teacher") {
       router.push("/teacher/profile");
     } else if (session.data?.user.userType == "admin") {
-      router.push("/admin/profile");
+      router.push("/administrator/profile");
     }
-  }, []);
+  }, [session.status, session.data?.user.userType]);
 
   return <div></div>;
 }
