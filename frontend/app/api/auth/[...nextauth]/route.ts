@@ -37,8 +37,7 @@ const authOptions: NextAuthOptions = {
             },
           }
         );
-        console.log(credentials);
-        console.log("data", data.data);
+
         if (!data.data) {
           throw new Error("User not found.");
         }
@@ -129,7 +128,7 @@ const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   jwt: {
-    secret: process.env.NEXTAUTH_SECRET,  // Make sure this is correctly set
+    secret: "gt782w4e5dr6fty7uvbihogyu53df6b7aa55",
   },
 
   callbacks: {
