@@ -1,5 +1,5 @@
 "use client";
-import { MajorType, AdministratorType } from "@/types/types";
+import { AdministratorType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -10,14 +10,14 @@ import {
   TableRow,
   TableCell,
   Input,
+  Button,
 } from "@nextui-org/react";
-
+import { Button as Button2 } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -33,6 +33,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   const phone = useRef<HTMLInputElement>(null);
   const address = useRef<HTMLInputElement>(null);
   const [date, setDate] = useState<Date>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +61,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       address: address.current?.value,
     };
     try {
+      setLoading(true);
       await axios
         .put(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/administrator/${params.id}`,
@@ -72,6 +74,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     } catch (error) {
       toast.error("An error occurred");
     }
+    setLoading(false);
   };
 
   return (
@@ -83,6 +86,29 @@ const Page = ({ params }: { params: { id: string } }) => {
             onClick={() => {
               handleEdit();
             }}
+            isLoading={loading}
+            spinner={
+              <svg
+                className="animate-spin h-5 w-5 text-current"
+                fill="none"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  fill="currentColor"
+                />
+              </svg>
+            }
           >
             Save Changes
           </Button>
@@ -142,7 +168,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 <TableCell>
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button
+                      <Button2
                         variant={"outline"}
                         className={cn(
                           "lg:w-[30rem] sm:w-[10rem] justify-start text-left font-normal",
@@ -151,7 +177,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {date ? format(date, "PPP") : <span>Birth date</span>}
-                      </Button>
+                      </Button2>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 " align="start">
                       <Calendar

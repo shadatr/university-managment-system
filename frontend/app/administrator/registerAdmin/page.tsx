@@ -1,23 +1,15 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import React, { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import React, { useState } from "react";
 import axios from "axios";
-import { MajorType, AdministratorType } from "@/types/types";
+import { AdministratorType } from "@/types/types";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Button as Button2 } from "@nextui-org/react";
 import {
   Popover,
   PopoverContent,
@@ -34,6 +26,7 @@ const Page = () => {
   const [address, setAddress] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = () => {
     if (password !== passwordConfirmation) {
@@ -47,14 +40,13 @@ const Page = () => {
       !email ||
       !address ||
       !password ||
-      !date 
+      !date
     ) {
       toast.error("Please fill all fields");
       return;
     }
-    const passwordHash = createHash('sha256')
-    .update(password)
-    .digest('hex');
+    setLoading(true);
+    const passwordHash = createHash("sha256").update(password).digest("hex");
 
     const data: AdministratorType = {
       name,
@@ -75,6 +67,7 @@ const Page = () => {
         toast.error("Error registering administrator");
         console.error(e);
       });
+    setLoading(false);
   };
 
   return (
@@ -110,7 +103,7 @@ const Page = () => {
         className="lg:w-[30rem] sm:w-[20rem]"
         onChange={(e) => setAddress(e.target.value)}
       />
- 
+
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -145,12 +138,35 @@ const Page = () => {
         placeholder="Password Confirmation"
         className="lg:w-[30rem] sm:w-[20rem]"
       />
-      <Button
+      <Button2
         className="lg:w-[30rem] sm:w-[20rem] bg-baby-blue hover:bg-blue-300"
         onClick={onSubmit}
+        isLoading={loading}
+        spinner={
+          <svg
+            className="animate-spin h-5 w-5 text-current"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              fill="currentColor"
+            />
+          </svg>
+        }
       >
         Register
-      </Button>
+      </Button2>
     </div>
   );
 };

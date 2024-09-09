@@ -18,8 +18,8 @@ import {
   User,
   Pagination,
   Selection,
-  ChipProps,
   SortDescriptor,
+  Spinner,
 } from "@nextui-org/react";
 import { VerticalDotsIcon } from "@/components/ui/verticalDotsIcon";
 import { SearchIcon } from "@/components/ui/searchIcon";
@@ -27,22 +27,18 @@ import { AdministratorType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const INITIAL_VISIBLE_COLUMNS = [
-  "name",
-  "surname",
-  "phone",
-  "actions",
-];
+const INITIAL_VISIBLE_COLUMNS = ["name", "surname", "phone", "actions"];
 const columns = [
   { name: "ID", uid: "id", sortable: true },
   { name: "NAME", uid: "name", sortable: true },
   { name: "SURNAME", uid: "surname", sortable: true },
   { name: "EMAIL", uid: "email" },
-  { name: "PHONE", uid: "phone"},
+  { name: "PHONE", uid: "phone" },
   { name: "ACTIONS", uid: "actions" },
 ];
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [filterValue, setFilterValue] = React.useState("");
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
     new Set(INITIAL_VISIBLE_COLUMNS)
@@ -64,7 +60,7 @@ export default function App() {
       );
       const administrators: AdministratorType[] = response.data;
       setAdministrators(administrators);
-      console.log(administrators);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -101,8 +97,12 @@ export default function App() {
 
   const sortedItems = React.useMemo(() => {
     return [...items].sort((a: AdministratorType, b: AdministratorType) => {
-      const first = a[sortDescriptor.column as keyof AdministratorType] as number;
-      const second = b[sortDescriptor.column as keyof AdministratorType] as number;
+      const first = a[
+        sortDescriptor.column as keyof AdministratorType
+      ] as number;
+      const second = b[
+        sortDescriptor.column as keyof AdministratorType
+      ] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
@@ -156,7 +156,6 @@ export default function App() {
                   >
                     View
                   </DropdownItem>
-              
                 </DropdownMenu>
               </Dropdown>
             </div>
@@ -227,18 +226,17 @@ export default function App() {
             Total {administrators.length} users
           </span>
           <div className="flex justify-center items-center gap-2">
-        
-          <label className="flex items-center text-default-400 text-small">
-            Rows per page:
-            <select
-              className="bg-transparent outline-none text-default-400 text-small"
-              onChange={onRowsPerPageChange}
-            >
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-            </select>
-          </label>
+            <label className="flex items-center text-default-400 text-small">
+              Rows per page:
+              <select
+                className="bg-transparent outline-none text-default-400 text-small"
+                onChange={onRowsPerPageChange}
+              >
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </label>
           </div>
         </div>
       </div>
@@ -255,7 +253,6 @@ export default function App() {
   const bottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-     
         <Pagination
           isCompact
           showControls
@@ -285,7 +282,7 @@ export default function App() {
         </div>
       </div>
     );
-  }, [ items.length, page, pages, hasSearchFilter]);
+  }, [items.length, page, pages, hasSearchFilter]);
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
@@ -314,7 +311,12 @@ export default function App() {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody emptyContent={"No users found"} items={sortedItems}>
+          <TableBody
+            emptyContent={"No users found"}
+            items={sortedItems}
+            isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}
+          >
             {(item) => (
               <TableRow>
                 {(columnKey) => (

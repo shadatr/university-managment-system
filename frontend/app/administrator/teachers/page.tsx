@@ -21,6 +21,7 @@ import {
   ChipProps,
   SortDescriptor,
   Tooltip,
+  Spinner,
 } from "@nextui-org/react";
 import { SearchIcon } from "@/components/ui/searchIcon";
 import { TeacherType } from "@/types/types";
@@ -49,7 +50,6 @@ const columns = [
 
 export default function App() {
   const [filterValue, setFilterValue] = React.useState("");
-
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
@@ -59,8 +59,7 @@ export default function App() {
     column: "name",
     direction: "ascending",
   });
-
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   const [teachers, setTeachers] = useState<TeacherType[]>([]);
 
   useEffect(() => {
@@ -70,7 +69,7 @@ export default function App() {
       );
       const teachers: TeacherType[] = response.data;
       setTeachers(teachers);
-      console.log(teachers);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -320,7 +319,8 @@ export default function App() {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody emptyContent={"No users found"} items={sortedItems}>
+          <TableBody emptyContent={"No users found"} items={sortedItems} isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}>
             {(item) => (
               <TableRow >
                 {(columnKey) => (

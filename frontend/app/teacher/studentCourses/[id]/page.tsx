@@ -14,6 +14,8 @@ import {
   Button,
   Tabs,
   Tab,
+  Spinner,
+  Selection,
 } from "@nextui-org/react";
 import {
   Select,
@@ -26,6 +28,7 @@ import {
 } from "@/components/ui/select";
 import { DeleteIcon } from "@/components/ui/DeleteIcon";
 import { toast } from "sonner";
+import { set } from "date-fns";
 
 export default function App({ params }: { params: { id: string } }) {
   const [sections, setSections] = useState<CourseSectionType[]>([]);
@@ -34,7 +37,9 @@ export default function App({ params }: { params: { id: string } }) {
   const [waitingStudentCourses, setWaitingStudentCourses] = useState<
     StudentCourseType[]
   >([]);
-  const [selectedKeys, setSelectedKeys] = useState(new Set([]));
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedKeys, setSelectedKeys] = useState<Set<number>>(new Set([]));
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,6 +57,7 @@ export default function App({ params }: { params: { id: string } }) {
         const waitingCourses = data2.filter((course) => !course.accepted);
         setStudentCourses(acceptedCourses);
         setWaitingStudentCourses(waitingCourses);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -112,12 +118,10 @@ export default function App({ params }: { params: { id: string } }) {
   };
 
   const handleAcceptCourses = async () => {
+    setLoading(true);
     try {
       for (const key of selectedKeys) {
         const course = waitingStudentCourses.find((course) => course.id == key);
-        console.log(course);
-        console.log(key);
-        console.log(waitingStudentCourses);
         const data = {
           section_id: course?.section?.id,
           student_id: course?.student?.id,
@@ -143,6 +147,7 @@ export default function App({ params }: { params: { id: string } }) {
       console.log(error);
       toast.error("An error occurred");
     }
+    setLoading(false);
   };
 
   return (
@@ -210,6 +215,29 @@ export default function App({ params }: { params: { id: string } }) {
                 selectedKeys.size ? "bg-baby-blue text-white" : ""
               }`}
               onClick={handleAcceptCourses}
+              isLoading={loading}
+              spinner={
+                <svg
+                  className="animate-spin h-5 w-5 text-current"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    fill="currentColor"
+                  />
+                </svg>
+              }
             >
               Accept Courses
             </Button>
@@ -217,8 +245,9 @@ export default function App({ params }: { params: { id: string } }) {
               aria-label="Controlled table example with dynamic content"
               selectionMode="multiple"
               selectedKeys={selectedKeys}
-              // onSelectionChange={setSelectedKeys}
-            >
+              onSelectionChange={(keys: Selection) => {
+                setSelectedKeys(new Set(keys as Set<number>)); 
+              }}            >
               <TableHeader>
                 <TableColumn>Course Name</TableColumn>
                 <TableColumn>Teacher</TableColumn>
@@ -226,6 +255,8 @@ export default function App({ params }: { params: { id: string } }) {
               <TableBody
                 items={waitingStudentCourses}
                 emptyContent={"No Courses found"}
+                isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}
               >
                 {(course) => (
                   <TableRow key={course.id}>

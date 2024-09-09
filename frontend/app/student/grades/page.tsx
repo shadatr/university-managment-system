@@ -6,6 +6,7 @@ import {
   CardFooter,
   CardHeader,
   Divider,
+  Spinner,
   Tab,
   Tabs,
 } from "@nextui-org/react";
@@ -24,6 +25,7 @@ import { useSession } from "next-auth/react";
 const Page = () => {
   const [currentGrades, setCurrentGrades] = useState<StudentCourseType[]>([]);
   const session = useSession();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +35,7 @@ const Page = () => {
         );
         const data2: StudentCourseType[] = response2.data;
         setCurrentGrades(data2);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -40,53 +43,57 @@ const Page = () => {
     fetchData();
   }, []);
 
-
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
       <div className="flex flex-col lg:w-[70vw] sm:w-[90vw] justify-end items-center ">
-            <Table isStriped aria-label="Example static collection table" className="lg:w-[70vw] sm:w-[90vw]">
-              <TableHeader>
-                <TableColumn>NAME</TableColumn>
-                <TableColumn>HOMEWORK</TableColumn>
+        <Table
+          isStriped
+          aria-label="Example static collection table"
+          className="lg:w-[70vw] sm:w-[90vw]"
+        >
+          <TableHeader>
+            <TableColumn>NAME</TableColumn>
+            <TableColumn>HOMEWORK</TableColumn>
 
-                <TableColumn>MIDTERM</TableColumn>
-                <TableColumn>FINAL</TableColumn>
-                <TableColumn>FINAL GRADE</TableColumn>
+            <TableColumn>MIDTERM</TableColumn>
+            <TableColumn>FINAL</TableColumn>
+            <TableColumn>FINAL GRADE</TableColumn>
 
-                <TableColumn>PASSED</TableColumn>
-              </TableHeader>
-              <TableBody emptyContent={"No currentGradess found"}>
-                {currentGrades.map((currentGrade) => (
-                  <TableRow key={currentGrade.id}>
-                    <TableCell>
-                      {currentGrade?.section?.name}{" "}
-                    </TableCell>
-                    <TableCell>{currentGrade?.homework}</TableCell>
-                    <TableCell>{currentGrade?.midterm}</TableCell>
-                    <TableCell>{currentGrade?.final_exam}</TableCell>
-                    <TableCell>{currentGrade?.final_grade}</TableCell>
-                    <TableCell>
-                      <span
-                        className={
-                          currentGrade.final_grade != null
-                            ? currentGrade.passed
-                              ? "text-green-500"
-                              : "text-red-500"
-                            : ""
-                        }
-                      >
-                        {currentGrade.final_grade != null
-                          ? currentGrade.passed
-                            ? "passed"
-                            : "failed"
-                          : ""}
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-         
+            <TableColumn>PASSED</TableColumn>
+          </TableHeader>
+          <TableBody
+            emptyContent={"No currentGradess found"}
+            isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}
+          >
+            {currentGrades.map((currentGrade) => (
+              <TableRow key={currentGrade.id}>
+                <TableCell>{currentGrade?.section?.name} </TableCell>
+                <TableCell>{currentGrade?.homework}</TableCell>
+                <TableCell>{currentGrade?.midterm}</TableCell>
+                <TableCell>{currentGrade?.final_exam}</TableCell>
+                <TableCell>{currentGrade?.final_grade}</TableCell>
+                <TableCell>
+                  <span
+                    className={
+                      currentGrade.final_grade != null
+                        ? currentGrade.passed
+                          ? "text-green-500"
+                          : "text-red-500"
+                        : ""
+                    }
+                  >
+                    {currentGrade.final_grade != null
+                      ? currentGrade.passed
+                        ? "passed"
+                        : "failed"
+                      : ""}
+                  </span>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

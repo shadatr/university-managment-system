@@ -10,11 +10,12 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Spinner,
 } from "@nextui-org/react";
 
 export default function App({ params }: { params: { id: string } }) {
   const [teacherCourses, setTeacherCourses] = useState<CourseSectionType[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +25,7 @@ export default function App({ params }: { params: { id: string } }) {
         );
         const data2: CourseSectionType[] = response2.data;
         setTeacherCourses(data2);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +44,8 @@ export default function App({ params }: { params: { id: string } }) {
             <TableColumn>HOURS</TableColumn>
             <TableColumn>CREDITS</TableColumn>
           </TableHeader>
-          <TableBody emptyContent={"No Courses found"}>
+          <TableBody emptyContent={"No Courses found"} isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}>
             {teacherCourses.map((course) => (
               <TableRow key={course.id}>
                 <TableCell >

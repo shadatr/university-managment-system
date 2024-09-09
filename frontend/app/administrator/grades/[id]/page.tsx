@@ -8,6 +8,7 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Spinner,
 } from "@nextui-org/react";
 import { StudentCourseType } from "@/types/types";
 import axios from "axios";
@@ -17,6 +18,7 @@ import { Button } from "@/components/ui/button";
 
 export default function App({ params }: { params: { id: string } }) {
   const [students, setStudents] = useState<StudentCourseType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +27,7 @@ export default function App({ params }: { params: { id: string } }) {
       );
       const students: StudentCourseType[] = response.data;
       setStudents(students);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -78,7 +81,8 @@ export default function App({ params }: { params: { id: string } }) {
 
             <TableColumn>PASSED</TableColumn>
           </TableHeader>
-          <TableBody emptyContent={"No Students found"}>
+          <TableBody emptyContent={"No Students found"} isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}>
             {students.map((student) => (
               <TableRow key={student.id}>
                 <TableCell>

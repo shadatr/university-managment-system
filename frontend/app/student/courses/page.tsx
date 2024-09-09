@@ -14,6 +14,7 @@ import {
   Button,
   Tabs,
   Tab,
+  Spinner,
 } from "@nextui-org/react";
 import {
   Select,
@@ -37,6 +38,7 @@ export default function App() {
   const [waitingStudentCourses, setWaitingStudentCourses] = useState<
     StudentCourseType[]
   >([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,6 +56,7 @@ export default function App() {
         const waitingCourses = data2.filter((course) => !course.accepted);
         setStudentCourses(acceptedCourses);
         setWaitingStudentCourses(waitingCourses);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -113,8 +116,6 @@ export default function App() {
     }
   };
 
-
-
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
       <div className="flex flex-col lg:w-[40vw] sm:w-[90vw]">
@@ -123,12 +124,8 @@ export default function App() {
           placement={"top"}
           className="flex justify-center items-center"
         >
-   
           <Tab key="currentCourses" title="Current courses">
-       
-            <Table
-              aria-label="Controlled table example with dynamic content"
-            >
+            <Table aria-label="Controlled table example with dynamic content">
               <TableHeader>
                 <TableColumn>Course Name</TableColumn>
                 <TableColumn>Teacher</TableColumn>
@@ -175,7 +172,11 @@ export default function App() {
                 <TableHeader>
                   <TableColumn>NAME</TableColumn>
                 </TableHeader>
-                <TableBody emptyContent={"No Courses found"}>
+                <TableBody
+                  emptyContent={"No Courses found"}
+                  isLoading={isLoading}
+                  loadingContent={<Spinner label="Loading..." />}
+                >
                   {waitingStudentCourses.map((course) => (
                     <TableRow key={course.id}>
                       <TableCell className="flex w-full justify-between items-center">

@@ -1,17 +1,8 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import React, { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import React, { useState } from "react";
 import axios from "axios";
-import { MajorType, TeacherType } from "@/types/types";
+import { TeacherType } from "@/types/types";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { toast } from "sonner";
@@ -24,6 +15,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { createHash } from "crypto";
+import { Button as Button2 } from "@nextui-org/react";
 
 const Page = () => {
   const [date, setDate] = useState<Date>();
@@ -36,6 +28,7 @@ const Page = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>();
   const [major, setMajor] = useState<string>();
   const [department, setDepartment] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = () => {
     if (password !== passwordConfirmation) {
@@ -56,9 +49,8 @@ const Page = () => {
       toast.error("Please fill all fields");
       return;
     }
-    const passwordHash = createHash('sha256')
-    .update(password)
-    .digest('hex');
+    setLoading(true);
+    const passwordHash = createHash("sha256").update(password).digest("hex");
 
     const data: TeacherType = {
       name,
@@ -66,7 +58,7 @@ const Page = () => {
       phone,
       email,
       address,
-      password:passwordHash,
+      password: passwordHash,
       major: major,
       birth_date: date?.toISOString().split("T")[0],
       department: department,
@@ -81,6 +73,7 @@ const Page = () => {
         toast.error("Error registering teacher");
         console.error(e);
       });
+    setLoading(false);
   };
 
   return (
@@ -116,12 +109,12 @@ const Page = () => {
         className="lg:w-[30rem] sm:w-[20rem]"
         onChange={(e) => setAddress(e.target.value)}
       />
-        <Input
-          type="text"
-          placeholder="Department"
-          className="lg:w-[30rem] sm:w-[20rem]"
-          onChange={(e) => setDepartment(e.target.value)}
-        />
+      <Input
+        type="text"
+        placeholder="Department"
+        className="lg:w-[30rem] sm:w-[20rem]"
+        onChange={(e) => setDepartment(e.target.value)}
+      />
       <Input
         type="text"
         placeholder="Major"
@@ -162,12 +155,35 @@ const Page = () => {
         placeholder="Password Confirmation"
         className="lg:w-[30rem] sm:w-[20rem]"
       />
-      <Button
+      <Button2
         className="lg:w-[30rem] sm:w-[20rem] bg-baby-blue hover:bg-blue-300"
         onClick={onSubmit}
+        isLoading={loading}
+        spinner={
+          <svg
+            className="animate-spin h-5 w-5 text-current"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              fill="currentColor"
+            />
+          </svg>
+        }
       >
         Register
-      </Button>
+      </Button2>
     </div>
   );
 };

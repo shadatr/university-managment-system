@@ -16,6 +16,7 @@ import {
   Selection,
   SortDescriptor,
   Tooltip,
+  Spinner,
 } from "@nextui-org/react";
 import { SearchIcon } from "@/components/ui/searchIcon";
 import { StudentType } from "@/types/types";
@@ -56,8 +57,8 @@ export default function App() {
     direction: "ascending",
   });
 
-  const router = useRouter();
   const [students, setStudents] = useState<StudentType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +67,8 @@ export default function App() {
       );
       const students: StudentType[] = response.data;
       setStudents(students);
-        };
+      setIsLoading(false);
+    };
     fetchData();
   }, []);
 
@@ -153,21 +155,29 @@ export default function App() {
           return (
             <div className="relative flex items-center gap-2 pl-5">
               <Tooltip content="Courses">
-                <Link href={`/administrator/studentCourses/${user.id}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <Link
+                  href={`/administrator/studentCourses/${user.id}`}
+                  className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                >
                   <BookIcon />
                 </Link>
               </Tooltip>
               <Tooltip content="Grades">
-              <Link href={`/administrator/studentGrades/${user.id}`} className="text-lg font-black text-default-400 cursor-pointer active:opacity-50">
-                A+
+                <Link
+                  href={`/administrator/studentGrades/${user.id}`}
+                  className="text-lg font-black text-default-400 cursor-pointer active:opacity-50"
+                >
+                  A+
                 </Link>
               </Tooltip>
               <Tooltip content="View profile">
-                <Link href={`/administrator/studentInformation/${user.id}`} className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <Link
+                  href={`/administrator/studentInformation/${user.id}`}
+                  className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                >
                   <EyeIcon />
                 </Link>
               </Tooltip>
-          
             </div>
           );
         default:
@@ -182,7 +192,6 @@ export default function App() {
     },
     []
   );
-  
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -264,7 +273,6 @@ export default function App() {
   const bottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-       
         <Pagination
           isCompact
           showControls
@@ -294,7 +302,7 @@ export default function App() {
         </div>
       </div>
     );
-  }, [ items.length, page, pages, hasSearchFilter]);
+  }, [items.length, page, pages, hasSearchFilter]);
 
   return (
     <div className="flex justify-center items-center w-[100vw] pt-10">
@@ -323,7 +331,12 @@ export default function App() {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody emptyContent={"No students found"} items={sortedItems}>
+          <TableBody
+            emptyContent={"No students found"}
+            items={sortedItems}
+            isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}
+          >
             {(item) => (
               <TableRow>
                 {(columnKey) => (

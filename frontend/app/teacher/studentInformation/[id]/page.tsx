@@ -10,6 +10,7 @@ import {
   TableRow,
   TableCell,
   Input,
+  Spinner,
 } from "@nextui-org/react";
 import {
   Select,
@@ -45,6 +46,7 @@ const Page = ({ params }: { params: { id: string } }) => {
   const [selectedMajor, setSelectedMajor] = useState<number>();
   const [selectedTeacher, setSelectedTeacher] = useState<number>();
   const [date, setDate] = useState<Date>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,6 +67,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         );
         const teachers: TeacherType[] = response2.data;
         setTeachers(teachers);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -125,7 +128,8 @@ const Page = ({ params }: { params: { id: string } }) => {
             <TableColumn>STUDENT INFORMATION</TableColumn>
             <TableColumn>{""}</TableColumn>
           </TableHeader>
-          <TableBody>
+          <TableBody isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}>
             <TableRow key="1">
               <TableCell className="lg:w-[8rem] sm:w-[3rem]">Name</TableCell>
               {edit ? (

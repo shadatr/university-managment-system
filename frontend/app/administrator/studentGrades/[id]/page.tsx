@@ -6,6 +6,7 @@ import {
   CardFooter,
   CardHeader,
   Divider,
+  Spinner,
   Tab,
   Tabs,
 } from "@nextui-org/react";
@@ -25,6 +26,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     []
   );
   const [currentGrades, setCurrentGrades] = useState<StudentCourseType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +45,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -84,7 +87,8 @@ const Page = ({ params }: { params: { id: string } }) => {
 
                 <TableColumn>PASSED</TableColumn>
               </TableHeader>
-              <TableBody emptyContent={"No currentGradess found"}>
+              <TableBody emptyContent={"No currentGradess found"} isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}>
                 {currentGrades.map((currentGrade) => (
                   <TableRow key={currentGrade.id}>
                     <TableCell>{currentGrade?.section?.name} </TableCell>

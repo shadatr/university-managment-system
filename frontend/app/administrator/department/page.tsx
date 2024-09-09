@@ -7,17 +7,20 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Button,
+  Spinner,
 } from "@nextui-org/react";
 import axios from "axios";
 import { DepartmentType } from "@/types/types";
 import { DeleteIcon } from "@/components/ui/DeleteIcon";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function App() {
   const [departments, setDepartments] = useState<DepartmentType[]>([]);
   const [departmentName, setDepartmentName] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +33,7 @@ export default function App() {
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -49,19 +53,21 @@ export default function App() {
   const handleAddDepartment = async () => {
     if (departmentName) {
       try {
+        setLoading(true);
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/department`,
           { name: departmentName }
         );
         const response2 = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/department`
-          );
-          const data: DepartmentType[] = response2.data;
-          setDepartments(data);
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/department`
+        );
+        const data: DepartmentType[] = response2.data;
+        setDepartments(data);
         toast.success("Department added successfully");
       } catch (error) {
         toast.error("Error adding department");
       }
+      setLoading(false);
     }
   };
 
@@ -74,7 +80,33 @@ export default function App() {
             placeholder="Enter department name"
             onChange={(e) => setDepartmentName(e.target.value)}
           />
-          <Button className=" bg-baby-blue hover:bg-blue-400" onClick={handleAddDepartment}>
+          <Button
+            isLoading={loading}
+            spinner={
+              <svg
+                className="animate-spin h-5 w-5 text-current"
+                fill="none"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  fill="currentColor"
+                />
+              </svg>
+            }
+            className=" bg-baby-blue hover:bg-blue-400"
+            onClick={handleAddDepartment}
+          >
             Add New Department
           </Button>
         </div>
@@ -82,7 +114,10 @@ export default function App() {
           <TableHeader>
             <TableColumn>NAME</TableColumn>
           </TableHeader>
-          <TableBody>
+          <TableBody
+            isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}
+          >
             {departments.map((department) => (
               <TableRow key={department.id}>
                 <TableCell className="flex w-full justify-between items-center">

@@ -10,9 +10,9 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Input,
   Tooltip,
   Button,
+  Spinner,
 } from "@nextui-org/react";
 import {
   Select,
@@ -24,13 +24,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DeleteIcon } from "@/components/ui/DeleteIcon";
-import Link from "next/link";
 import { toast } from "sonner";
 
 export default function App({ params }: { params: { id: string } }) {
   const [courses, setCourses] = useState<CourseType[]>([]);
   const [course, setCourse] = useState<number>();
   const [majorCourses, setMajorCourses] = useState<MajorCoursesType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +49,7 @@ export default function App({ params }: { params: { id: string } }) {
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     };
     fetchData();
   }, [params.id]);
@@ -57,7 +59,7 @@ export default function App({ params }: { params: { id: string } }) {
       toast.error("Please select a course");
       return;
     }
-
+    setLoading(true);
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/majorCourses`, {
         major_id: params.id,
@@ -65,16 +67,17 @@ export default function App({ params }: { params: { id: string } }) {
       })
       .then(async (response) => {
         const response2 = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/majorCourses/major/${params.id}`
-          );
-          const data2: MajorCoursesType[] = response2.data;
-          setMajorCourses(data2);
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/majorCourses/major/${params.id}`
+        );
+        const data2: MajorCoursesType[] = response2.data;
+        setMajorCourses(data2);
         toast.success("Course added successfully");
       })
       .catch((error) => {
         console.log(error);
         toast.error("An error occurred");
       });
+    setLoading(false);
   };
 
   const handleDelete = async (id: number) => {
@@ -104,7 +107,7 @@ export default function App({ params }: { params: { id: string } }) {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Department</SelectLabel>
+                <SelectLabel>Course</SelectLabel>
                 {courses.map((t) => (
                   <SelectItem key={t.id} value={t.id?.toString() || ""}>
                     {t.name}
@@ -116,6 +119,29 @@ export default function App({ params }: { params: { id: string } }) {
           <Button
             className=" bg-baby-blue hover:bg-blue-400"
             onClick={handleAddCourseToMajor}
+            isLoading={loading}
+            spinner={
+              <svg
+                className="animate-spin h-5 w-5 text-current"
+                fill="none"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  fill="currentColor"
+                />
+              </svg>
+            }
           >
             Add Course
           </Button>
@@ -124,7 +150,8 @@ export default function App({ params }: { params: { id: string } }) {
           <TableHeader>
             <TableColumn>NAME</TableColumn>
           </TableHeader>
-          <TableBody emptyContent={"No Courses found"} >
+          <TableBody emptyContent={"No Courses found"} isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}>
             {majorCourses.map((course) => (
               <TableRow key={course.id}>
                 <TableCell className="flex w-full justify-between items-center">

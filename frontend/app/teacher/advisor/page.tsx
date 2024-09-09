@@ -10,19 +10,14 @@ import {
   TableCell,
   Input,
   Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
   Chip,
   User,
   Pagination,
   Selection,
-  ChipProps,
   SortDescriptor,
   Tooltip,
+  Spinner,
 } from "@nextui-org/react";
-import { VerticalDotsIcon } from "@/components/ui/verticalDotsIcon";
 import { SearchIcon } from "@/components/ui/searchIcon";
 import { StudentType } from "@/types/types";
 import axios from "axios";
@@ -51,9 +46,8 @@ const columns = [
 
 export default function App() {
   const session = useSession();
-
   const [filterValue, setFilterValue] = React.useState("");
-
+  const [isLoading, setIsLoading] = useState(true);
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
@@ -64,7 +58,6 @@ export default function App() {
     direction: "ascending",
   });
 
-  const router = useRouter();
   const [students, setStudents] = useState<StudentType[]>([]);
 
   useEffect(() => {
@@ -74,7 +67,7 @@ export default function App() {
       );
       const students: StudentType[] = response.data;
       setStudents(students);
-      console.log(students);
+      setIsLoading(false);
     };
     fetchData();
   }, [session.data?.user.id]);
@@ -327,7 +320,8 @@ export default function App() {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody emptyContent={"No students found"} items={sortedItems}>
+          <TableBody emptyContent={"No students found"} items={sortedItems} isLoading={isLoading}
+            loadingContent={<Spinner label="Loading..." />}>
             {(item) => (
               <TableRow>
                 {(columnKey) => (

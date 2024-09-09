@@ -11,8 +11,9 @@ import {
   TableCell,
   Input,
   Tooltip,
+  Spinner,
 } from "@nextui-org/react";
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab, Button as Button2 } from "@nextui-org/react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { DeleteIcon } from "@/components/ui/DeleteIcon";
@@ -39,6 +40,8 @@ const Page = ({ params }: { params: { id: string } }) => {
   const [teacher, setTeacher] = useState<number>();
   const [year, setYear] = useState<string>();
   const [term, setTerm] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +65,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     };
 
     fetchData();
@@ -81,10 +85,13 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   const handleAddSection = async () => {
     try {
+      setLoading(true);
       await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/courseSection`,
         {
-          name: `${course?.name} (Section ${courseSections.filter((i)=>i.course.id==course?.id).length + 1})`,
+          name: `${course?.name} (Section ${
+            courseSections.filter((i) => i.course.id == course?.id).length + 1
+          })`,
           course_id: course?.id,
           semester: `${year}-${term}`,
           teacher_id: teacher,
@@ -99,6 +106,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     } catch (error) {
       toast.error("Error adding Section");
     }
+    setLoading(false);
   };
 
   const handleEdit = async () => {
@@ -108,6 +116,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       credits: parseInt(credits.current?.value || ""),
     };
     try {
+      setLoading(true);
       await axios
         .put(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/course/${params.id}`,
@@ -120,10 +129,12 @@ const Page = ({ params }: { params: { id: string } }) => {
     } catch (error) {
       toast.error("An error occurred");
     }
+    setLoading(false);
   };
 
   return (
     <div className="w-[100wv] justify-center items-center flex">
+      {isLoading ? <Spinner className="h-[500px]" label="Loading..." />:
       <div className="flex flex-col lg:w-[60vw] sm:w-[90vw] pt-10 ">
         <Tabs
           aria-label="Options"
@@ -131,16 +142,39 @@ const Page = ({ params }: { params: { id: string } }) => {
           className="flex justify-center items-center"
         >
           <Tab key="courseInformation" title="Course Information">
-            <div >
+            <div>
               {edit ? (
-                <Button
+                <Button2
                   className="my-2"
                   onClick={() => {
                     handleEdit();
                   }}
+                  isLoading={loading}
+                  spinner={
+                    <svg
+                      className="animate-spin h-5 w-5 text-current"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  }
                 >
                   Save Changes
-                </Button>
+                </Button2>
               ) : (
                 <Button
                   className="my-2"
@@ -156,6 +190,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                   <TableColumn>Course INFORMATION</TableColumn>
                   <TableColumn>{""}</TableColumn>
                 </TableHeader>
+
                 <TableBody>
                   <TableRow key="1">
                     <TableCell className="w-[100px]">Name</TableCell>
@@ -207,23 +242,23 @@ const Page = ({ params }: { params: { id: string } }) => {
             </div>
           </Tab>
           <Tab key="sections" title="Course Sections">
-            <div >
+            <div>
               <div className="flex items-center gap-2 py-10">
-              <Select onValueChange={(e) => setTerm(e)}>
-                  <SelectTrigger >
+                <Select onValueChange={(e) => setTerm(e)}>
+                  <SelectTrigger>
                     <SelectValue placeholder="Select a Term" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
                       <SelectLabel>Term</SelectLabel>
-              
+
                       <SelectItem value="Fall">Fall</SelectItem>
                       <SelectItem value="Spring">Spring</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
                 <Select onValueChange={(e) => setYear(e)}>
-                  <SelectTrigger >
+                  <SelectTrigger>
                     <SelectValue placeholder="Select a Year" />
                   </SelectTrigger>
                   <SelectContent>
@@ -237,7 +272,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-              
+
                 <Select onValueChange={(e) => setTeacher(parseInt(e))}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a Teacher" />
@@ -253,12 +288,35 @@ const Page = ({ params }: { params: { id: string } }) => {
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-                <Button
+                <Button2
                   className=" bg-baby-blue hover:bg-blue-400 lg:w-[30rem] sm:w-[10rem]"
                   onClick={handleAddSection}
+                  isLoading={loading}
+                  spinner={
+                    <svg
+                      className="animate-spin h-5 w-5 text-current"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  }
                 >
                   Add New Section
-                </Button>
+                </Button2>
               </div>
               <Table isStriped aria-label="Example static collection table">
                 <TableHeader>
@@ -266,7 +324,10 @@ const Page = ({ params }: { params: { id: string } }) => {
                   <TableColumn>TEACHER</TableColumn>
                   <TableColumn>SEMESTER</TableColumn>
                 </TableHeader>
-                <TableBody>
+                <TableBody
+                  isLoading={isLoading}
+                  loadingContent={<Spinner label="Loading..." />}
+                >
                   {courseSections.map((section) => (
                     <TableRow key={section.id}>
                       <TableCell>{section?.name}</TableCell>
@@ -300,6 +361,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           </Tab>
         </Tabs>
       </div>
+      }
     </div>
   );
 };
